@@ -1,0 +1,529 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F0069BE1-7261-440B-8BC9-B3BAC827CE1D}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>RetroClash</RootNamespace>
+    <AssemblyName>RetroClash</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>crown.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Google.Protobuf, Version=3.5.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.5.1\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=8.0.10.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.8.0.10-rc\lib\net452\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="StackExchange.Redis, Version=1.2.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StackExchange.Redis.1.2.7-alpha-00002\lib\net46\StackExchange.Redis.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configuration.cs" />
+    <Compile Include="Crypto\Rc4.cs" />
+    <Compile Include="Crypto\Scrambler.cs" />
+    <Compile Include="Database\ApiService.cs" />
+    <Compile Include="Database\Cache.cs" />
+    <Compile Include="Database\Models\ApiInfo.cs" />
+    <Compile Include="Database\MySQL.cs" />
+    <Compile Include="Database\Redis.cs" />
+    <Compile Include="Extensions\Prefixed.cs" />
+    <Compile Include="Extensions\Reader.cs" />
+    <Compile Include="Extensions\Utils.cs" />
+    <Compile Include="Extensions\Writer.cs" />
+    <Compile Include="Files\Csv.cs" />
+    <Compile Include="Files\CsvHelpers\Data.cs" />
+    <Compile Include="Files\CsvHelpers\DataTable.cs" />
+    <Compile Include="Files\CsvHelpers\GlobalId.cs" />
+    <Compile Include="Files\CsvReader\Column.cs" />
+    <Compile Include="Files\CsvReader\Gamefiles.cs" />
+    <Compile Include="Files\CsvReader\Row.cs" />
+    <Compile Include="Files\CsvReader\Table.cs" />
+    <Compile Include="Files\Fingerprint.cs" />
+    <Compile Include="Files\Logic\Achievements.cs" />
+    <Compile Include="Files\Logic\Alliance_badges.cs" />
+    <Compile Include="Files\Logic\Alliance_portal.cs" />
+    <Compile Include="Files\Logic\Billing_packages.cs" />
+    <Compile Include="Files\Logic\Buildings.cs" />
+    <Compile Include="Files\Logic\Building_classes.cs" />
+    <Compile Include="Files\Logic\Characters.cs" />
+    <Compile Include="Files\Logic\Decos.cs" />
+    <Compile Include="Files\Logic\Effects.cs" />
+    <Compile Include="Files\Logic\Experience_levels.cs" />
+    <Compile Include="Files\Logic\Faq.cs" />
+    <Compile Include="Files\Logic\Globals.cs" />
+    <Compile Include="Files\Logic\Heroes.cs" />
+    <Compile Include="Files\Logic\Hints.cs" />
+    <Compile Include="Files\Logic\Leagues.cs" />
+    <Compile Include="Files\Logic\Locales.cs" />
+    <Compile Include="Files\Logic\Missions.cs" />
+    <Compile Include="Files\Logic\News.cs" />
+    <Compile Include="Files\Logic\Npcs.cs" />
+    <Compile Include="Files\Logic\Obstacles.cs" />
+    <Compile Include="Files\Logic\Particle_emitters.cs" />
+    <Compile Include="Files\Logic\Projectiles.cs" />
+    <Compile Include="Files\Logic\Resources.cs" />
+    <Compile Include="Files\Logic\Resource_packs.cs" />
+    <Compile Include="Files\Logic\Shields.cs" />
+    <Compile Include="Files\Logic\Spells.cs" />
+    <Compile Include="Files\Logic\Texts.cs" />
+    <Compile Include="Files\Logic\Traps.cs" />
+    <Compile Include="Logic\Alliance.cs" />
+    <Compile Include="Logic\Device.cs" />
+    <Compile Include="Logic\Enums\Gamefile.cs" />
+    <Compile Include="Logic\Enums\States.cs" />
+    <Compile Include="Logic\LogicUtils.cs" />
+    <Compile Include="Logic\Manager\Items\Building.cs" />
+    <Compile Include="Logic\Manager\Items\Decoration.cs" />
+    <Compile Include="Logic\Manager\Items\Obstacle.cs" />
+    <Compile Include="Logic\Manager\Items\Trap.cs" />
+    <Compile Include="Logic\Manager\Items\Unit.cs" />
+    <Compile Include="Logic\Manager\Items\UnitProd.cs" />
+    <Compile Include="Files\Levels.cs" />
+    <Compile Include="Logic\Manager\Objects.cs" />
+    <Compile Include="Logic\Manager\Units.cs" />
+    <Compile Include="Logic\Slots\Achievements.cs" />
+    <Compile Include="Logic\Slots\AllianceMember.cs" />
+    <Compile Include="Logic\Player.cs" />
+    <Compile Include="Logic\Slots\Items\Achievement.cs" />
+    <Compile Include="Network\Gateway.cs" />
+    <Compile Include="Network\Pool.cs" />
+    <Compile Include="Network\SocketAsyncEventArgsPool.cs" />
+    <Compile Include="Network\Token.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Protocol\Command.cs" />
+    <Compile Include="Protocol\Commands\Client\LogicLeagueNotificationsSeen.cs" />
+    <Compile Include="Protocol\Commands\Client\LogicClaimAchievementReward.cs" />
+    <Compile Include="Protocol\Commands\Client\LogicSellBuilding.cs" />
+    <Compile Include="Protocol\Commands\Client\LogicMoveMultipleBuildings.cs" />
+    <Compile Include="Protocol\Commands\Client\LogicCastSpell.cs" />
+    <Compile Include="Protocol\Commands\Client\LogicEditModeShown.cs" />
+    <Compile Include="Protocol\Commands\Client\LogicBuyBuilding.cs" />
+    <Compile Include="Protocol\Commands\Client\LogicBuyDeco.cs" />
+    <Compile Include="Protocol\Commands\Client\LogicBuyTrap.cs" />
+    <Compile Include="Protocol\Commands\Client\LogicMatchmaking.cs" />
+    <Compile Include="Protocol\Commands\Client\LogicMoveBuilding.cs" />
+    <Compile Include="Protocol\Commands\Client\LogicNewShopItemsSeen.cs" />
+    <Compile Include="Protocol\Commands\Client\LogicNewsSeen.cs" />
+    <Compile Include="Protocol\Commands\Client\LogicPlaceAttacker.cs" />
+    <Compile Include="Protocol\Commands\Client\LogicSpeedUpConstruction.cs" />
+    <Compile Include="Protocol\Commands\Client\LogicSpeedUpUnitUpgrade.cs" />
+    <Compile Include="Protocol\Commands\Client\LogicUnitUpgrade.cs" />
+    <Compile Include="Protocol\Commands\Client\LogicTrainUnit.cs" />
+    <Compile Include="Protocol\Commands\Client\LogicUpgradeBuilding.cs" />
+    <Compile Include="Protocol\Commands\Server\LogicChangeAvatarName.cs" />
+    <Compile Include="Protocol\DebugCommand.cs" />
+    <Compile Include="Protocol\CommandFactory.cs" />
+    <Compile Include="Protocol\DebugCommandFactory.cs" />
+    <Compile Include="Protocol\Message.cs" />
+    <Compile Include="Protocol\MessageFactory.cs" />
+    <Compile Include="Protocol\Messages\Client\AskForAvatarLocalRankingList.cs" />
+    <Compile Include="Protocol\Messages\Client\AskForAvatarRankingList.cs" />
+    <Compile Include="Protocol\Messages\Client\AskForAllianceRankingList.cs" />
+    <Compile Include="Protocol\Messages\Client\AskForAvatarProfileMessage.cs" />
+    <Compile Include="Protocol\Messages\Client\AskForJoinableAlliancesList.cs" />
+    <Compile Include="Protocol\Messages\Client\AttackNpc.cs" />
+    <Compile Include="Protocol\Messages\Client\BindGoogleServiceAccount.cs" />
+    <Compile Include="Protocol\Messages\Client\ChangeAvatarName.cs" />
+    <Compile Include="Protocol\Messages\Client\EndClientTurn.cs" />
+    <Compile Include="Protocol\Messages\Client\GoHome.cs" />
+    <Compile Include="Protocol\Messages\Client\CreateAlliance.cs" />
+    <Compile Include="Protocol\Messages\Client\SendGlobalChatLine.cs" />
+    <Compile Include="Protocol\Messages\Client\KeepAlive.cs" />
+    <Compile Include="Protocol\Messages\Client\LoginMessage.cs" />
+    <Compile Include="Protocol\Messages\Client\SetDeviceTokenMessage.cs" />
+    <Compile Include="Protocol\Messages\Client\VisitHome.cs" />
+    <Compile Include="Protocol\Messages\Server\AllianceCreateFailed.cs" />
+    <Compile Include="Protocol\Messages\Server\AllianceRankingList.cs" />
+    <Compile Include="Protocol\Messages\Server\AllianceList.cs" />
+    <Compile Include="Protocol\Messages\Server\AvailableServerCommand.cs" />
+    <Compile Include="Protocol\Messages\Server\AvatarNameChangeFailed.cs" />
+    <Compile Include="Protocol\Messages\Server\AvatarProfile.cs" />
+    <Compile Include="Protocol\Messages\Server\AvatarRankingList.cs" />
+    <Compile Include="Protocol\Messages\Server\GlobalChatLine.cs" />
+    <Compile Include="Protocol\Messages\Server\Disconnected.cs" />
+    <Compile Include="Protocol\Messages\Server\EnemyHomeData.cs" />
+    <Compile Include="Protocol\Messages\Server\GoogleServiceAccountBound.cs" />
+    <Compile Include="Protocol\Messages\Server\JoinableAllianceList.cs" />
+    <Compile Include="Protocol\Messages\Server\LoginFailed.cs" />
+    <Compile Include="Protocol\Messages\Server\LoginOk.cs" />
+    <Compile Include="Protocol\Messages\Server\NpcData.cs" />
+    <Compile Include="Protocol\Messages\Server\OutOfSync.cs" />
+    <Compile Include="Protocol\Messages\Server\OwnHomeData.cs" />
+    <Compile Include="Protocol\Messages\Server\AllianceJoinOk.cs" />
+    <Compile Include="Protocol\Messages\Server\PersonalBreakStarted.cs" />
+    <Compile Include="Protocol\Messages\Server\ServerError.cs" />
+    <Compile Include="Protocol\Messages\Server\AllianceChangeFailed.cs" />
+    <Compile Include="Protocol\Messages\Server\ShutdownStarted.cs" />
+    <Compile Include="Protocol\Messages\Server\VisitedHomeData.cs" />
+    <Compile Include="Resources.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Assets\csv\achievements.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\alliance_badges.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\alliance_portal.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\animations.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\billing_packages.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\buildings.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\building_classes.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\characters.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\credits.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\decos.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\effects.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\experience_levels.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\faq.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\globals.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\heroes.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\hints.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\leagues.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\locales.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\missions.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\news.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\npcs.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\obstacles.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\particle_emitters.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\projectiles.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\resources.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\resource_packs.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\shields.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\spells.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\texts.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\townhall_levels.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\csv\traps.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\fingerprint.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc10.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc11.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc12.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc13.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc14.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc15.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc16.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc17.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc18.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc19.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc20.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc21.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc22.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc23.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc24.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc25.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc26.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc27.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc28.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc29.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc3.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc30.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc31.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc32.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc33.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc34.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc35.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc36.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc37.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc38.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc39.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc4.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc40.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc41.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc42.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc43.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc44.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc45.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc46.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc47.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc48.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc5.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc6.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc7.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc8.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\npc9.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\townhall1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\townhall10.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\townhall2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\townhall3.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\townhall4.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\townhall5.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\townhall6.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\townhall7.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\townhall8.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\townhall9.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\starting_home.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\tutorial_npc.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\level\tutorial_npc2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Protocol\Debug\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\database_custom.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\database.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="crown.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

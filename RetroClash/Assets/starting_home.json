@@ -1,0 +1,78 @@
+{
+  "buildings": [
+    {
+      "data": 1000001,
+      "id": 500000000,
+      "lvl": 1,
+      "x": 21,
+      "y": 20
+    },
+    {
+      "data": 1000004,
+      "id": 500000001,
+      "lvl": 0,
+      "x": 20,
+      "y": 16,
+      "res_time": 8992
+    },
+    {
+      "data": 1000000,
+      "id": 500000002,
+      "lvl": 0,
+      "x": 26,
+      "y": 19,
+      "units": [
+
+      ],
+      "storage_type": 0
+    },
+    {
+      "data": 1000015,
+      "id": 500000003,
+      "lvl": 0,
+      "x": 18,
+      "y": 20
+    },
+    {
+      "data": 1000014,
+      "id": 500000004,
+      "lvl": 0,
+      "locked": false,
+      "x": 20,
+      "y": 25
+    },
+    {
+      "data": 1000020,
+      "id": 500000005,
+      "lvl": 0,
+      "x": 24,
+      "y": 25,
+      "unit_prod": { "unit_type": 1 },
+      "storage_type": 1
+    },
+    {
+      "data": 1000006,
+      "id": 500000006,
+      "lvl": 0,
+      "x": 16,
+      "y": 23
+    }
+  ],
+  "obstacles": [
+
+  ],
+  "traps": [
+
+  ],
+  "decos": [
+
+  ],
+  "respawnVars": {
+    "secondsFromLastRespawn": 0,
+    "respawnSeed": 1529463799,
+    "obstacleClearCounter": 0
+  },
+  "cooldowns": [
+
+  ]
+}
