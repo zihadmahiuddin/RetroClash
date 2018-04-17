@@ -79,7 +79,7 @@ namespace RetroClash.Protocol.Messages.Client
                     {
                         Device.Player = await MySQL.GetPlayer(AccountId);
 
-                        if (Device.Player.PassToken == Token)
+                        if (Device.Player != null && Device.Player.PassToken == Token)
                         {
                             Resources.Cache.AddPlayer(Device.Player, Device);
 

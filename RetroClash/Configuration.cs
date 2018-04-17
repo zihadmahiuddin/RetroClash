@@ -18,11 +18,7 @@ namespace RetroClash
         [JsonIgnore]
         public static bool Maintenance = false;
 
-        [JsonIgnore]
-        public const string StageKey = "";
-
-        [JsonIgnore]
-        public const string ProdKey = "fhsd6f86f67rt8fw78fw789we78r9789wer6re";
+        [JsonProperty("encryption_key")] public string EncryptionKey = "fhsd6f86f67rt8fw78fw789we78r9789wer6re";
 
         [JsonProperty("update_url")] public string UpdateUrl = "https://retroclash.pw/";
 
@@ -56,6 +52,7 @@ namespace RetroClash
                     MySqlDatabase = config.MySqlDatabase;
                     RedisPassword = config.RedisPassword;
                     RedisServer = config.RedisServer;
+                    EncryptionKey = config.EncryptionKey;
                 }
                 catch (Exception)
                 {

@@ -21,7 +21,7 @@ namespace RetroClash.Protocol.Messages.Server
 
             await Stream.WriteStringAsync(Resources.Levels.NpcLevels[NpcId - 17000000]);
 
-            await Stream.WriteBufferAsync(await Device.Player.LogicClientAvatar());
+            await Device.Player.LogicClientAvatar(Stream);
 
             await Stream.WriteIntAsync(0);
 

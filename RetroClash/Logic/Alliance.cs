@@ -46,45 +46,30 @@ namespace RetroClash.Logic
         [JsonProperty("members")]
         public Dictionary<long, AllianceMember> Members { get; set; }
 
-        public async Task<byte[]> AllianceRankingEntry()
+        public async Task AllianceRankingEntry(MemoryStream stream)
         {
-            using (var stream = new MemoryStream())
-            {
-                await stream.WriteIntAsync(Badge); // Badge
-                await stream.WriteIntAsync(0); // Member Count
-
-                return stream.ToArray();
-            }
+            await stream.WriteIntAsync(Badge); // Badge
+            await stream.WriteIntAsync(0); // Member Count
         }
 
-        public async Task<byte[]> AllianceFullEntry()
+        public async Task AllianceFullEntry(MemoryStream stream)
         {
-            using (var stream = new MemoryStream())
-            {
-                await stream.WriteBufferAsync(await AllianceHeaderEntry());
+            await AllianceHeaderEntry(stream);
 
-                await stream.WriteStringAsync(Description); // Description
-                await stream.WriteLongAsync(0); // Donation Reset Time
-                await stream.WriteLongAsync(0); // Ranking Check Time
-
-                return stream.ToArray();
-            }
+            await stream.WriteStringAsync(Description); // Description
+            await stream.WriteLongAsync(0); // Donation Reset Time
+            await stream.WriteLongAsync(0); // Ranking Check Time
         }
 
-        public async Task<byte[]> AllianceHeaderEntry()
+        public async Task AllianceHeaderEntry(MemoryStream stream)
         {
-            using (var stream = new MemoryStream())
-            {
-                await stream.WriteLongAsync(Id); // Id
-                await stream.WriteStringAsync(Name); // Name
-                await stream.WriteIntAsync(Badge); // Badge
-                await stream.WriteIntAsync(Type); // Type
-                await stream.WriteIntAsync(0); // Member Count
-                await stream.WriteIntAsync(0); // Score
-                await stream.WriteIntAsync(RequiredScore); // Required Score
-
-                return stream.ToArray();
-            }
+            await stream.WriteLongAsync(Id); // Id
+            await stream.WriteStringAsync(Name); // Name
+            await stream.WriteIntAsync(Badge); // Badge
+            await stream.WriteIntAsync(Type); // Type
+            await stream.WriteIntAsync(0); // Member Count
+            await stream.WriteIntAsync(0); // Score
+            await stream.WriteIntAsync(RequiredScore); // Required Score
         }
     }
 }

@@ -21,11 +21,11 @@ namespace RetroClash.Protocol.Messages.Server
 
             var player = await Resources.Cache.GetPlayer(AvatarId);
 
-            await Stream.WriteBufferAsync(await player.LogicClientHome());
-            await Stream.WriteBufferAsync(await player.LogicClientAvatar());
+            await player.LogicClientHome(Stream);
+            await player.LogicClientAvatar(Stream);
 
             Stream.WriteByte(1);
-            await Stream.WriteBufferAsync(await Device.Player.LogicClientAvatar());
+            await Device.Player.LogicClientAvatar(Stream);
         }
     }
 }

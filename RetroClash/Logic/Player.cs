@@ -70,172 +70,157 @@ namespace RetroClash.Logic
             AutoReset = true            
         };
 
-        public async Task<byte[]> LogicClientHome()
+        public async Task LogicClientHome(MemoryStream stream)
         {
-            using (var stream = new MemoryStream())
-            {
-                await stream.WriteIntAsync(0);
+            await stream.WriteIntAsync(0);
 
-                await stream.WriteLongAsync(AccountId); // Account Id
+            await stream.WriteLongAsync(AccountId); // Account Id
 
-                await stream.WriteStringAsync(Objects.Json);
+            await stream.WriteStringAsync(Objects.Json);
 
-                await stream.WriteIntAsync(0); // Defense Rating
-                await stream.WriteIntAsync(0); // Defense Factor
-                await stream.WriteIntAsync(0);
-
-                return stream.ToArray();
-            }
+            await stream.WriteIntAsync(0); // Defense Rating
+            await stream.WriteIntAsync(0); // Defense Factor
+            await stream.WriteIntAsync(0);
         }
 
-        public async Task<byte[]> LogicClientAvatar()
+        public async Task LogicClientAvatar(MemoryStream stream)
         {
-            using (var stream = new MemoryStream())
+            await stream.WriteIntAsync(0);
+            await stream.WriteLongAsync(AccountId); // Account Id
+            await stream.WriteLongAsync(AccountId); // Home Id
+
+            stream.WriteByte(0); // IsInAlliance
+
+            // Below only if in Alliance
+            //await Stream.WriteLongAsync(0); // Alliance Id
+            //await Stream.WriteStringAsync("RetroClash"); // Alliance Name
+            //await Stream.WriteIntAsync(0); // Alliance Badge
+            //await Stream.WriteIntAsync(0); // Alliance Role
+
+            await stream.WriteIntAsync(LogicUtils.GetLeagueByScore(Score)); // League Type
+
+            await stream.WriteIntAsync(0); // Alliance Castle Level
+            await stream.WriteIntAsync(0); // Alliance Total Capacity
+            await stream.WriteIntAsync(0); // Alliance Used Capacity
+            await stream.WriteIntAsync(2); // Townhall Level
+
+            await stream.WriteStringAsync(Name); // Name
+            await stream.WriteStringAsync(null); // Facebook Id
+
+            await stream.WriteIntAsync(ExpLevel); // Exp Level
+            await stream.WriteIntAsync(0); // Exp Points
+
+            await stream.WriteIntAsync(100000000); // Diamonts
+            await stream.WriteIntAsync(0); // Current Diamonts
+            await stream.WriteIntAsync(0); // Free Diamonts
+
+            await stream.WriteIntAsync(0); // Unknown
+
+            await stream.WriteIntAsync(Score); // Score
+
+            await stream.WriteIntAsync(0); // Attack Win Count
+            await stream.WriteIntAsync(0); // Attack Lose Count
+
+            await stream.WriteIntAsync(0); // Defense Win Count
+            await stream.WriteIntAsync(0); // Defense Lose Count
+
+            stream.WriteByte(0); // Name Set By User (bool)
+            await stream.WriteIntAsync(0);
+
+            await stream.WriteIntAsync(0); // Resource Caps Count
+
+            await stream.WriteIntAsync(3); // Resource DataSlot Count
+            await stream.WriteIntAsync(3000001); // Gold
+            await stream.WriteIntAsync(1000000000); // Count
+            await stream.WriteIntAsync(3000002); // Elixir
+            await stream.WriteIntAsync(1000000000); // Count
+            await stream.WriteIntAsync(3000003); // Dark Elixir
+            await stream.WriteIntAsync(100000000); // Count
+
+            // Troops
+            await stream.WriteIntAsync(Units.Troops.Count);
+            foreach (var troop in Units.Troops)
             {
-                await stream.WriteIntAsync(0);
-                await stream.WriteLongAsync(AccountId); // Account Id
-                await stream.WriteLongAsync(AccountId); // Home Id
-                
-                stream.WriteByte(0); // IsInAlliance
-
-                // Below only if in Alliance
-                //await Stream.WriteLongAsync(0); // Alliance Id
-                //await Stream.WriteStringAsync("RetroClash"); // Alliance Name
-                //await Stream.WriteIntAsync(0); // Alliance Badge
-                //await Stream.WriteIntAsync(0); // Alliance Role
-
-                await stream.WriteIntAsync(LogicUtils.GetLeagueByScore(Score)); // League Type
-
-                await stream.WriteIntAsync(0); // Alliance Castle Level
-                await stream.WriteIntAsync(0); // Alliance Total Capacity
-                await stream.WriteIntAsync(0); // Alliance Used Capacity
-                await stream.WriteIntAsync(2); // Townhall Level
-
-                await stream.WriteStringAsync(Name); // Name
-                await stream.WriteStringAsync(null); // Facebook Id
-
-                await stream.WriteIntAsync(ExpLevel); // Exp Level
-                await stream.WriteIntAsync(0); // Exp Points
-
-                await stream.WriteIntAsync(100000000); // Diamonts
-                await stream.WriteIntAsync(0); // Current Diamonts
-                await stream.WriteIntAsync(0); // Free Diamonts
-
-                await stream.WriteIntAsync(0); // Unknown
-
-                await stream.WriteIntAsync(Score); // Score
-
-                await stream.WriteIntAsync(0); // Attack Win Count
-                await stream.WriteIntAsync(0); // Attack Lose Count
-
-                await stream.WriteIntAsync(0); // Defense Win Count
-                await stream.WriteIntAsync(0); // Defense Lose Count
-
-                stream.WriteByte(0); // Name Set By User (bool)
-                await stream.WriteIntAsync(0);
-
-                await stream.WriteIntAsync(0); // Resource Caps Count
-
-                await stream.WriteIntAsync(3); // Resource DataSlot Count
-                await stream.WriteIntAsync(3000001); // Gold
-                await stream.WriteIntAsync(1000000000); // Count
-                await stream.WriteIntAsync(3000002); // Elixir
-                await stream.WriteIntAsync(1000000000); // Count
-                await stream.WriteIntAsync(3000003); // Dark Elixir
-                await stream.WriteIntAsync(100000000); // Count
-
-                // Troops
-                await stream.WriteIntAsync(Units.Troops.Count);
-                foreach (var troop in Units.Troops)
-                {
-                    await stream.WriteIntAsync(troop.Id);
-                    await stream.WriteIntAsync(troop.Count);
-                }
-
-                // Spells
-                await stream.WriteIntAsync(Units.Spells.Count);
-                foreach (var spell in Units.Spells)
-                {
-                    await stream.WriteIntAsync(spell.Id);
-                    await stream.WriteIntAsync(spell.Count);
-                }
-
-                // Troop Levels
-                await stream.WriteIntAsync(Units.Troops.Count);
-                foreach (var troop in Units.Troops)
-                {
-                    await stream.WriteIntAsync(troop.Id);
-                    await stream.WriteIntAsync(troop.Level);
-                }
-
-                // Spell Levels
-                await stream.WriteIntAsync(Units.Spells.Count);
-                foreach (var spell in Units.Spells)
-                {
-                    await stream.WriteIntAsync(spell.Id);
-                    await stream.WriteIntAsync(spell.Level);
-                }
-
-                await stream.WriteIntAsync(0); // Hero Upgrade DataSlot Count
-
-                await stream.WriteIntAsync(0); // Hero Health DataSlot Count
-                await stream.WriteIntAsync(0); // Hero State DataSlot Count
-
-                await stream.WriteIntAsync(0); // Alliance Unit DataSlot Count
-
-                await stream.WriteIntAsync(TutorialSteps); // TutorialSteps
-                for (var index = 21000000; index < 21000000 + TutorialSteps; index++)
-                    await stream.WriteIntAsync(index);
-
-                await stream.WriteIntAsync(Achievements.Count);
-                foreach (var achievement in Achievements)
-                {
-                    await stream.WriteIntAsync(achievement.Id);
-                }
-
-                await stream.WriteIntAsync(Achievements.Count); // Achievement Progress DataSlot Count
-                foreach (var achievement in Achievements)
-                {
-                    await stream.WriteIntAsync(achievement.Id);
-                    await stream.WriteIntAsync(achievement.Data);
-                }
-
-                await stream.WriteIntAsync(50); // Npc Map Progress DataSlot Count
-                for (var index = 17000000; index < 17000050; index++)
-                {
-                    await stream.WriteIntAsync(index);
-                    await stream.WriteIntAsync(3);
-                }
-
-                await stream.WriteIntAsync(0); // Npc Looted Gold DataSlot
-                await stream.WriteIntAsync(0); // Npc Looted Elixir DataSlot
-
-                return stream.ToArray();
+                await stream.WriteIntAsync(troop.Id);
+                await stream.WriteIntAsync(troop.Count);
             }
+
+            // Spells
+            await stream.WriteIntAsync(Units.Spells.Count);
+            foreach (var spell in Units.Spells)
+            {
+                await stream.WriteIntAsync(spell.Id);
+                await stream.WriteIntAsync(spell.Count);
+            }
+
+            // Troop Levels
+            await stream.WriteIntAsync(Units.Troops.Count);
+            foreach (var troop in Units.Troops)
+            {
+                await stream.WriteIntAsync(troop.Id);
+                await stream.WriteIntAsync(troop.Level);
+            }
+
+            // Spell Levels
+            await stream.WriteIntAsync(Units.Spells.Count);
+            foreach (var spell in Units.Spells)
+            {
+                await stream.WriteIntAsync(spell.Id);
+                await stream.WriteIntAsync(spell.Level);
+            }
+
+            await stream.WriteIntAsync(0); // Hero Upgrade DataSlot Count
+
+            await stream.WriteIntAsync(0); // Hero Health DataSlot Count
+            await stream.WriteIntAsync(0); // Hero State DataSlot Count
+
+            await stream.WriteIntAsync(0); // Alliance Unit DataSlot Count
+
+            await stream.WriteIntAsync(TutorialSteps); // TutorialSteps
+            for (var index = 21000000; index < 21000000 + TutorialSteps; index++)
+                await stream.WriteIntAsync(index);
+
+            await stream.WriteIntAsync(Achievements.Count);
+            foreach (var achievement in Achievements)
+            {
+                await stream.WriteIntAsync(achievement.Id);
+            }
+
+            await stream.WriteIntAsync(Achievements.Count); // Achievement Progress DataSlot Count
+            foreach (var achievement in Achievements)
+            {
+                await stream.WriteIntAsync(achievement.Id);
+                await stream.WriteIntAsync(achievement.Data);
+            }
+
+            await stream.WriteIntAsync(50); // Npc Map Progress DataSlot Count
+            for (var index = 17000000; index < 17000050; index++)
+            {
+                await stream.WriteIntAsync(index);
+                await stream.WriteIntAsync(3);
+            }
+
+            await stream.WriteIntAsync(0); // Npc Looted Gold DataSlot
+            await stream.WriteIntAsync(0); // Npc Looted Elixir DataSlot
         }
 
-        public async Task<byte[]> AvatarRankingEntry()
+        public async Task AvatarRankingEntry(MemoryStream stream)
         {
-            using (var stream = new MemoryStream())
-            {
-                await stream.WriteIntAsync(ExpLevel); // Exp Level
-                await stream.WriteIntAsync(0); // Attack Win Count
-                await stream.WriteIntAsync(0); // Attack Lose Count
-                await stream.WriteIntAsync(0); // Defense Win Count
-                await stream.WriteIntAsync(0); // Defense Lose Count
-                await stream.WriteIntAsync(LogicUtils.GetLeagueByScore(Score)); // League Type
+            await stream.WriteIntAsync(ExpLevel); // Exp Level
+            await stream.WriteIntAsync(0); // Attack Win Count
+            await stream.WriteIntAsync(0); // Attack Lose Count
+            await stream.WriteIntAsync(0); // Defense Win Count
+            await stream.WriteIntAsync(0); // Defense Lose Count
+            await stream.WriteIntAsync(LogicUtils.GetLeagueByScore(Score)); // League Type
 
-                await stream.WriteStringAsync("DE"); // Country
-                await stream.WriteLongAsync(AccountId); // Home Id
+            await stream.WriteStringAsync("DE"); // Country
+            await stream.WriteLongAsync(AccountId); // Home Id
 
-                stream.WriteByte(0); // Clan Bool
+            stream.WriteByte(0); // Clan Bool
 
-                //await stream.WriteLongAsync(0); // Clan Id
-                //await stream.WriteStringAsync("Clan"); // Clan Name
-                //await stream.WriteIntAsync(0); // Badge
-
-                return stream.ToArray();
-            }
+            //await stream.WriteLongAsync(0); // Clan Id
+            //await stream.WriteStringAsync("Clan"); // Clan Name
+            //await stream.WriteIntAsync(0); // Badge
         }
 
         public async void SaveCallback(object state, ElapsedEventArgs args)

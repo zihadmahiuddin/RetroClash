@@ -17,9 +17,9 @@ namespace RetroClash.Protocol.Messages.Server
         {
             await Stream.WriteIntAsync(0);
 
-            await Stream.WriteBufferAsync(await Device.Player.LogicClientHome());
+            await Device.Player.LogicClientHome(Stream);
 
-            await Stream.WriteBufferAsync(await Device.Player.LogicClientAvatar());
+            await Device.Player.LogicClientAvatar(Stream);
         }
     }
 }

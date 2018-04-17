@@ -17,14 +17,14 @@ namespace RetroClash.Protocol.Messages.Server
         {
             if (UserId == Device.Player.AccountId)
             {
-                await Stream.WriteBufferAsync(await Device.Player.LogicClientAvatar());
+                await Device.Player.LogicClientAvatar(Stream);
 
                 await Stream.WriteIntAsync(0); // Troops Donated
                 await Stream.WriteIntAsync(0); // Troops Received               
             }
             else
             {
-                await Stream.WriteBufferAsync(await (await Resources.Cache.GetPlayer(UserId)).LogicClientAvatar());
+                await (await Resources.Cache.GetPlayer(UserId)).LogicClientAvatar(Stream);
 
                 await Stream.WriteIntAsync(0); // Troops Donated
                 await Stream.WriteIntAsync(0); // Troops Received

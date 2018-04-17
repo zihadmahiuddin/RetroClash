@@ -29,7 +29,7 @@ namespace RetroClash.Protocol.Messages.Server
                     await buffer.WriteIntAsync(player.Score);
                     await buffer.WriteIntAsync(200);
 
-                    await buffer.WriteBufferAsync(await player.AvatarRankingEntry());
+                    await player.AvatarRankingEntry(buffer);
 
                     if (count++ >= 199)
                         break;

@@ -65,7 +65,7 @@ namespace RetroClash.Crypto
 
     public class Rc4Core
     {
-        internal const string InitialKey = Configuration.ProdKey;
+        internal string InitialKey = Resources.Configuration.EncryptionKey;
         internal const string InitialNonce = "nonce";
 
         internal Rc4Core()

@@ -19,10 +19,10 @@ namespace RetroClash.Protocol.Messages.Server
         {
             await Stream.WriteIntAsync(10);
 
-            await Stream.WriteBufferAsync(await Enemy.LogicClientHome());
-            await Stream.WriteBufferAsync(await Enemy.LogicClientAvatar());
+            await Enemy.LogicClientHome(Stream);
+            await Enemy.LogicClientAvatar(Stream);
 
-            await Stream.WriteBufferAsync(await Device.Player.LogicClientAvatar());
+            await Device.Player.LogicClientAvatar(Stream);
 
             await Stream.WriteIntAsync(3);
             Stream.WriteByte(0);
