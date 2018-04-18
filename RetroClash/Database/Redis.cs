@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using RetroClash.Logic;
+using RetroClash.Logic.Manager;
 using StackExchange.Redis;
 
 namespace RetroClash.Database
@@ -52,6 +53,28 @@ namespace RetroClash.Database
             {
                 if (Configuration.Debug)
                     Console.WriteLine(exception);
+            }
+        }
+
+        public static async Task<Player> GetCachedPlayer(long id)
+        {
+            try
+            {
+                var data = (await _players.StringGetAsync(id.ToString())).ToString().Split("#:#:#:#".ToCharArray());
+
+                using (var player = JsonConvert.DeserializeObject<Player>(data[0]))
+                {
+                    player.LogicGameObjectManager = JsonConvert.DeserializeObject<LogicGameObjectManager>(data[1]);
+
+                    return player;
+                }
+            }
+            catch (Exception exception)
+            {
+                if (Configuration.Debug)
+                    Console.WriteLine(exception);
+
+                return null;
             }
         }
     }
