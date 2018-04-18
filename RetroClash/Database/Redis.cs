@@ -46,7 +46,7 @@ namespace RetroClash.Database
             try
             {
                 await _players.StringSetAsync(player.AccountId.ToString(), 
-                    JsonConvert.SerializeObject(player, Settings) + "#:#:#:#" + player.Objects.Json, TimeSpan.FromHours(4));
+                    JsonConvert.SerializeObject(player, Settings) + "#:#:#:#" + player.LogicGameObjectManager.Json, TimeSpan.FromHours(4));
             }
             catch (Exception exception)
             {

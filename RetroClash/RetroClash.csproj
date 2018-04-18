@@ -151,7 +151,7 @@
     <Compile Include="Logic\Manager\Items\Unit.cs" />
     <Compile Include="Logic\Manager\Items\UnitProd.cs" />
     <Compile Include="Files\Levels.cs" />
-    <Compile Include="Logic\Manager\Objects.cs" />
+    <Compile Include="Logic\Manager\LogicGameObjectManager.cs" />
     <Compile Include="Logic\Manager\Units.cs" />
     <Compile Include="Logic\Slots\Achievements.cs" />
     <Compile Include="Logic\Slots\AllianceMember.cs" />

@@ -22,7 +22,7 @@ namespace RetroClash.Logic
             Score = 2000;
             TutorialSteps = 10;
 
-            Objects = JsonConvert.DeserializeObject<Objects>(Resources.Levels.StartingHome);
+            LogicGameObjectManager = JsonConvert.DeserializeObject<LogicGameObjectManager>(Resources.Levels.StartingHome);
         }
 
         [JsonProperty("account_id")]
@@ -59,7 +59,7 @@ namespace RetroClash.Logic
         public Achievements Achievements = new Achievements();
 
         [JsonIgnore]
-        public Objects Objects { get; set; }
+        public LogicGameObjectManager LogicGameObjectManager { get; set; }
 
         [JsonIgnore]
         public Device Device { get; set; }
@@ -76,7 +76,7 @@ namespace RetroClash.Logic
 
             await stream.WriteLongAsync(AccountId); // Account Id
 
-            await stream.WriteStringAsync(Objects.Json);
+            await stream.WriteStringAsync(LogicGameObjectManager.Json);
 
             await stream.WriteIntAsync(0); // Defense Rating
             await stream.WriteIntAsync(0); // Defense Factor
@@ -234,7 +234,7 @@ namespace RetroClash.Logic
 
             Timer = null;
             Device = null;
-            Objects = null;
+            LogicGameObjectManager = null;
             Units = null;
         }
     }

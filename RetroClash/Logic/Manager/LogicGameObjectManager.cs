@@ -7,7 +7,7 @@ using RetroClash.Logic.Manager.Items;
 
 namespace RetroClash.Logic.Manager
 {
-    public class Objects
+    public class LogicGameObjectManager
     {
         [JsonProperty("buildings")]
         public List<Building> Buildings = new List<Building>();

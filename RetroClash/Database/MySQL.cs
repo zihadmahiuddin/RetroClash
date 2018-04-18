@@ -202,7 +202,7 @@ namespace RetroClash.Database
                     {
 #pragma warning disable 618
                         cmd.Parameters?.Add("@avatar", JsonConvert.SerializeObject(player, Settings));
-                        cmd.Parameters?.Add("@objects", player.Objects.Json);
+                        cmd.Parameters?.Add("@objects", player.LogicGameObjectManager.Json);
 #pragma warning restore 618
 
                         cmd.Prepare();
@@ -315,8 +315,8 @@ namespace RetroClash.Database
                         while (await reader.ReadAsync())
                         {
                             var player = JsonConvert.DeserializeObject<Player>((string)reader["Avatar"], Settings);
-                            player.Objects =
-                                JsonConvert.DeserializeObject<Objects>((string)reader["GameObjects"], Settings);
+                            player.LogicGameObjectManager =
+                                JsonConvert.DeserializeObject<LogicGameObjectManager>((string)reader["GameObjects"], Settings);
 
                             list.Add(player);
                         }
@@ -387,8 +387,8 @@ namespace RetroClash.Database
                         while (await reader.ReadAsync())
                         {
                             player = JsonConvert.DeserializeObject<Player>((string)reader["Avatar"], Settings);
-                            player.Objects =
-                                JsonConvert.DeserializeObject<Objects>((string)reader["GameObjects"], Settings);
+                            player.LogicGameObjectManager =
+                                JsonConvert.DeserializeObject<LogicGameObjectManager>((string)reader["GameObjects"], Settings);
                         }
                     }
 
@@ -454,7 +454,7 @@ namespace RetroClash.Database
                     {
 #pragma warning disable 618
                         cmd.Parameters?.Add("@avatar", JsonConvert.SerializeObject(player, Settings));
-                        cmd.Parameters?.Add("@objects", player.Objects.Json);
+                        cmd.Parameters?.Add("@objects", player.LogicGameObjectManager.Json);
 #pragma warning restore 618
 
                         cmd.Prepare();
