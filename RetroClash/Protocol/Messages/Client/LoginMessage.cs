@@ -57,23 +57,27 @@ namespace RetroClash.Protocol.Messages.Client
             if (Device.State != States.State.Home)
             {
                 if (Configuration.Maintenance)
-                {
                     await Resources.Gateway.Send(new LoginFailed(Device) {ErrorCode = 10});
-                }
                 else
                 {
                     if (AccountId == 0)
                     {
                         Device.Player = await MySQL.CreatePlayer();
-                        Device.Player.Country = Country;
-                        Device.Player.DeviceName = DeviceName;
-                        Device.Player.IpAddress = ((IPEndPoint) Device.Socket.RemoteEndPoint).Address.ToString();
 
-                        Resources.Cache.AddPlayer(Device.Player, Device);
+                        if (Device.Player != null)
+                        {
+                            Device.Player.Country = Country;
+                            Device.Player.DeviceName = DeviceName;
+                            Device.Player.IpAddress = ((IPEndPoint) Device.Socket.RemoteEndPoint).Address.ToString();
 
-                        await Resources.Gateway.Send(new LoginOk(Device));
+                            Resources.Cache.AddPlayer(Device.Player, Device);
 
-                        await Resources.Gateway.Send(new OwnHomeData(Device));
+                            await Resources.Gateway.Send(new LoginOk(Device));
+
+                            await Resources.Gateway.Send(new OwnHomeData(Device));
+                        }
+                        else
+                            await Resources.Gateway.Send(new OutOfSync(Device));
                     }
                     else
                     {
@@ -88,9 +92,7 @@ namespace RetroClash.Protocol.Messages.Client
                             await Resources.Gateway.Send(new OwnHomeData(Device));
                         }
                         else
-                        {
                             await Resources.Gateway.Send(new OutOfSync(Device));
-                        }
                     }
                 }
             }
