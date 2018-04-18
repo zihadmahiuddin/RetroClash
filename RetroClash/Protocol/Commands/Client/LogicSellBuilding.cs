@@ -20,7 +20,7 @@ namespace RetroClash.Protocol.Commands.Client
 
         public override async Task Process()
         {
-            Device.Player.Objects.RemoveDeco(BuildingId);
+            Device.Player.LogicGameObjectManager.RemoveDeco(BuildingId);
         }
     }
 }

@@ -46,7 +46,7 @@ namespace RetroClash.Protocol.Messages.Client
                         var lvl = Convert.ToInt32(Message.Split(' ')[1]);
                         if (lvl > 0 && lvl < 12)
                         {
-                            foreach (var building in Device.Player.Objects.Buildings)
+                            foreach (var building in Device.Player.LogicGameObjectManager.Buildings)
                             {
                                 if (building.Data != 1000010) continue;
                                 building.Level = lvl - 1;

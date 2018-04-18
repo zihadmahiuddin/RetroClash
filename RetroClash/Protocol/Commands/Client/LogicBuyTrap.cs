@@ -23,7 +23,7 @@ namespace RetroClash.Protocol.Commands.Client
 
         public override async Task Process()
         {
-            Device.Player.Objects.AddTrap(TrapId, X, Y);
+            Device.Player.LogicGameObjectManager.AddTrap(TrapId, X, Y);
         }
     }
 }

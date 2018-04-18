@@ -20,7 +20,7 @@ namespace RetroClash.Protocol.Commands.Client
 
         public override async Task Process()
         {
-            Device.Player.Objects.Upgrade(BuildingId);
+            Device.Player.LogicGameObjectManager.Upgrade(BuildingId);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace RetroClash.Protocol.Commands.Client
 
         public override async Task Process()
         {
-            Device.Player.Objects.LastNewsSeen = Reader.ReadInt32();
+            Device.Player.LogicGameObjectManager.LastNewsSeen = Reader.ReadInt32();
         }
     }
 }

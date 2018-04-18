@@ -24,7 +24,7 @@ namespace RetroClash.Protocol.Commands.Client
                 var x = Reader.ReadInt32();
                 var y = Reader.ReadInt32();
 
-                Device.Player.Objects.Move(Reader.ReadInt32(), x, y);
+                Device.Player.LogicGameObjectManager.Move(Reader.ReadInt32(), x, y);
             }
 
             Reader.ReadInt32();

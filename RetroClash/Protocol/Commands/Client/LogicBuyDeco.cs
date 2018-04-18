@@ -23,7 +23,7 @@ namespace RetroClash.Protocol.Commands.Client
 
         public override async Task Process()
         {
-            Device.Player.Objects.AddDeco(DecoId, X, Y);
+            Device.Player.LogicGameObjectManager.AddDeco(DecoId, X, Y);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace RetroClash.Protocol.Commands.Client
 
         public override async Task Process()
         {
-            Device.Player.Objects.AddBuilding(BuildingId, X, Y);
+            Device.Player.LogicGameObjectManager.AddBuilding(BuildingId, X, Y);
         }
     }
 }

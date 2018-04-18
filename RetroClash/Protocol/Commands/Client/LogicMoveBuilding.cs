@@ -24,7 +24,7 @@ namespace RetroClash.Protocol.Commands.Client
 
         public override async Task Process()
         {
-            Device.Player.Objects.Move(BuildingId, X, Y);
+            Device.Player.LogicGameObjectManager.Move(BuildingId, X, Y);
         }
     }
 }
