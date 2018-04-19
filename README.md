@@ -8,6 +8,9 @@ Start contributing by making pull-requests.
 
 [Clash of Clans 5.2.4 APK](https://clash-of-clans.en.uptodown.com/android/download/50586)
 
+### Help
+[How to setup MySql](https://github.com/RetroClash/RetroClash/wiki/How-to-setup-RetroClash)
+
 License
 ----
 
