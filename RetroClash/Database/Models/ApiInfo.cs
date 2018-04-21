@@ -4,6 +4,9 @@ namespace RetroClash.Database.Models
 {
     public class ApiInfo
     {
+        [JsonProperty("id")]
+        public long Id { get; set; }
+
         [JsonProperty("Online")]
         public int Online { get; set; }
 

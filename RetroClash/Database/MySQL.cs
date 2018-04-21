@@ -268,6 +268,7 @@ namespace RetroClash.Database
 
                     var info = new ApiInfo
                     {
+                        Id = await MaxApiId() + 1,
                         Online = Resources.Cache.Players.Count,
                         PlayersInDb = await PlayerCount(),
                         AlliancesInDb = await AllianceCount(),
@@ -276,7 +277,7 @@ namespace RetroClash.Database
                     };
 
                     using (var cmd =
-                        new MySqlCommand($"INSERT INTO `api`(`Id`, `Info`) VALUES ({await MaxApiId() + 1}, @info)",
+                        new MySqlCommand($"INSERT INTO `api`(`Id`, `Info`) VALUES ({info.Id}, @info)",
                             connection))
                     {
 #pragma warning disable 618
