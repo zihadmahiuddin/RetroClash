@@ -36,6 +36,7 @@ namespace RetroClash
 
         [JsonProperty("redis_server")] public string RedisServer = "127.0.0.1";
 
+        [JsonProperty("server_port")] public int ServerPort = 9339;
 
         public void Initialize()
         {
@@ -53,6 +54,7 @@ namespace RetroClash
                     RedisPassword = config.RedisPassword;
                     RedisServer = config.RedisServer;
                     EncryptionKey = config.EncryptionKey;
+                    ServerPort = config.ServerPort;
                 }
                 catch (Exception)
                 {

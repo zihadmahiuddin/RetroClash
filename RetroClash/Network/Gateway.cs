@@ -53,7 +53,7 @@ namespace RetroClash.Network
                     NoDelay = true
                 };
 
-                Listener.Bind(new IPEndPoint(IPAddress.Any, 9339));
+                Listener.Bind(new IPEndPoint(IPAddress.Any, Resources.Configuration.ServerPort));
                 Listener.Listen(100);
 
                 Console.WriteLine($"RetroClash is listening on {Listener.LocalEndPoint}. Let's play Clash of Clans!");
