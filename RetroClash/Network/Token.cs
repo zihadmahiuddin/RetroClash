@@ -26,9 +26,7 @@ namespace RetroClash.Network
 
         public async Task SetData()
         {
-            var data = new byte[_args.BytesTransferred];
-            Array.Copy(_args.Buffer, 0, data, 0, _args.BytesTransferred);
-            await Stream.WriteAsync(data, 0, data.Length);
+            await Stream.WriteAsync(_args.Buffer, 0, _args.BytesTransferred);
         }
 
         public void Reset()
