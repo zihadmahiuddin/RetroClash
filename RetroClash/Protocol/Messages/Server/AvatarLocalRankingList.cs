@@ -6,11 +6,11 @@ using RetroClash.Logic;
 
 namespace RetroClash.Protocol.Messages.Server
 {
-    public class AvatarRankingList : Message
+    public class AvatarLocalRankingList : Message
     {
-        public AvatarRankingList(Device device) : base(device)
+        public AvatarLocalRankingList(Device device) : base(device)
         {
-            Id = 24403;
+            Id = 24404;
         }
 
         public override async Task Encode()
@@ -19,7 +19,7 @@ namespace RetroClash.Protocol.Messages.Server
 
             using (var buffer = new MemoryStream())
             {
-                foreach (var player in await MySQL.GetGlobalPlayerRanking())
+                foreach (var player in await MySQL.GetLocalPlayerRanking(Device.Player.Language))
                 {
                     await buffer.WriteLongAsync(player.AccountId);
                     await buffer.WriteStringAsync(player.Name);

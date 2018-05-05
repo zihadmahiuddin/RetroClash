@@ -72,7 +72,7 @@ namespace RetroClash.Logic
             await stream.WriteIntAsync(Badge); // Badge
             await stream.WriteIntAsync(Type); // Type
             await stream.WriteIntAsync(Members.Count); // Member Count
-            await stream.WriteIntAsync(0); // Score
+            await stream.WriteIntAsync(Score); // Score
             await stream.WriteIntAsync(RequiredScore); // Required Score
         }
     }

@@ -212,6 +212,7 @@
     <Compile Include="Protocol\Messages\Server\AvailableServerCommand.cs" />
     <Compile Include="Protocol\Messages\Server\AvatarNameChangeFailed.cs" />
     <Compile Include="Protocol\Messages\Server\AvatarProfile.cs" />
+    <Compile Include="Protocol\Messages\Server\AvatarLocalRankingList.cs" />
     <Compile Include="Protocol\Messages\Server\AvatarRankingList.cs" />
     <Compile Include="Protocol\Messages\Server\GlobalChatLine.cs" />
     <Compile Include="Protocol\Messages\Server\Disconnected.cs" />

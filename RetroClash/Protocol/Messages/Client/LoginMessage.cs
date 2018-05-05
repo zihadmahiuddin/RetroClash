@@ -17,7 +17,7 @@ namespace RetroClash.Protocol.Messages.Client
 
         public long AccountId { get; set; }
         public string Token { get; set; }
-        public string Country { get; set; }
+        public string Language { get; set; }
         public string DeviceName { get; set; }
 
         public override void Decode()
@@ -40,7 +40,7 @@ namespace RetroClash.Protocol.Messages.Client
 
             Reader.ReadInt32(); // Unknown
 
-            Country = Reader.ReadString(); // Country
+            Language = Reader.ReadString(); // Country
 
             Reader.ReadInt32(); // Unknown
 
@@ -66,7 +66,7 @@ namespace RetroClash.Protocol.Messages.Client
 
                         if (Device.Player != null)
                         {
-                            Device.Player.Country = Country;
+                            Device.Player.Language = Language;
                             Device.Player.DeviceName = DeviceName;
                             Device.Player.IpAddress = ((IPEndPoint) Device.Socket.RemoteEndPoint).Address.ToString();
 

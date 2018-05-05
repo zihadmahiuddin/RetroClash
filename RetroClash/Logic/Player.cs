@@ -21,6 +21,7 @@ namespace RetroClash.Logic
             ExpLevel = 1;      
             Score = 2000;
             TutorialSteps = 10;
+            Language = "en";
 
             LogicGameObjectManager = JsonConvert.DeserializeObject<LogicGameObjectManager>(Resources.Levels.StartingHome);
         }
@@ -31,9 +32,6 @@ namespace RetroClash.Logic
         [JsonProperty("account_name")]
         public string Name { get; set; }
 
-        [JsonProperty("country")]
-        public string Country { get; set; }
-
         [JsonProperty("device_name")]
         public string DeviceName { get; set; }
 
@@ -42,9 +40,6 @@ namespace RetroClash.Logic
 
         [JsonProperty("exp_level")]
         public int ExpLevel { get; set; }
-
-        [JsonProperty("score")]
-        public int Score { get; set; }
 
         [JsonProperty("tutorial_steps")]
         public int TutorialSteps { get; set; }
@@ -57,6 +52,12 @@ namespace RetroClash.Logic
 
         [JsonProperty("achievements")]
         public Achievements Achievements = new Achievements();
+
+        [JsonIgnore]
+        public int Score { get; set; }
+
+        [JsonIgnore]
+        public string Language { get; set; }
 
         [JsonIgnore]
         public LogicGameObjectManager LogicGameObjectManager { get; set; }
@@ -213,7 +214,7 @@ namespace RetroClash.Logic
             await stream.WriteIntAsync(0); // Defense Lose Count
             await stream.WriteIntAsync(LogicUtils.GetLeagueByScore(Score)); // League Type
 
-            await stream.WriteStringAsync("DE"); // Country
+            await stream.WriteStringAsync(Language); // Country
             await stream.WriteLongAsync(AccountId); // Home Id
 
             stream.WriteByte(0); // Clan Bool

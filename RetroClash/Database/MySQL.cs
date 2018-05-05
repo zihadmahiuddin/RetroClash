@@ -197,10 +197,11 @@ namespace RetroClash.Database
 
                     using (var cmd =
                         new MySqlCommand(
-                            $"INSERT INTO `player`(`PlayerId`, `Avatar`, `GameObjects`) VALUES ({player.AccountId}, @avatar, @objects)",
+                            $"INSERT INTO `player`(`PlayerId`, `Score`, `Language`, `Avatar`, `GameObjects`) VALUES ({player.AccountId}, {player.Score}, @language, @avatar, @objects)",
                             connection))
                     {
 #pragma warning disable 618
+                        cmd.Parameters?.Add("@language", player.Language);
                         cmd.Parameters?.Add("@avatar", JsonConvert.SerializeObject(player, Settings));
                         cmd.Parameters?.Add("@objects", player.LogicGameObjectManager.Json);
 #pragma warning restore 618
@@ -298,7 +299,7 @@ namespace RetroClash.Database
             }
         }
 
-        public static async Task<List<Player>> GetRandomPlayers(int limit)
+        public static async Task<List<Player>> GetGlobalPlayerRanking()
         {
             var list = new List<Player>();
 
@@ -308,7 +309,7 @@ namespace RetroClash.Database
                 {
                     await connection.OpenAsync();            
 
-                    using (var cmd = new MySqlCommand($"SELECT * FROM `player` order by RAND() limit {limit}", connection))
+                    using (var cmd = new MySqlCommand("SELECT * FROM `player` ORDER BY `Score` DESC LIMIT 200", connection))
                     {
                         cmd.Prepare();
                         var reader = await cmd.ExecuteReaderAsync();
@@ -316,6 +317,49 @@ namespace RetroClash.Database
                         while (await reader.ReadAsync())
                         {
                             var player = JsonConvert.DeserializeObject<Player>((string)reader["Avatar"], Settings);
+                            player.Score = Convert.ToInt32(reader["Score"]);
+                            player.Language = reader["Language"].ToString();
+                            player.LogicGameObjectManager =
+                                JsonConvert.DeserializeObject<LogicGameObjectManager>((string)reader["GameObjects"], Settings);
+
+                            list.Add(player);
+                        }
+                    }
+
+                    await connection.CloseAsync();
+
+                    return list;
+                }
+            }
+            catch (Exception exception)
+            {
+                if (Configuration.Debug)
+                    Console.WriteLine(exception);
+
+                return list;
+            }
+        }
+
+        public static async Task<List<Player>> GetLocalPlayerRanking(string language)
+        {
+            var list = new List<Player>();
+
+            try
+            {
+                using (var connection = new MySqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (var cmd = new MySqlCommand($"SELECT * FROM `player` WHERE Language = '{language}' ORDER BY `Score` DESC LIMIT 200", connection))
+                    {
+                        cmd.Prepare();
+                        var reader = await cmd.ExecuteReaderAsync();
+
+                        while (await reader.ReadAsync())
+                        {
+                            var player = JsonConvert.DeserializeObject<Player>((string)reader["Avatar"], Settings);
+                            player.Score = Convert.ToInt32(reader["Score"]);
+                            player.Language = reader["Language"].ToString();
                             player.LogicGameObjectManager =
                                 JsonConvert.DeserializeObject<LogicGameObjectManager>((string)reader["GameObjects"], Settings);
 
@@ -388,6 +432,8 @@ namespace RetroClash.Database
                         while (await reader.ReadAsync())
                         {
                             player = JsonConvert.DeserializeObject<Player>((string)reader["Avatar"], Settings);
+                            player.Score = Convert.ToInt32(reader["Score"]);
+                            player.Language = reader["Language"].ToString();
                             player.LogicGameObjectManager =
                                 JsonConvert.DeserializeObject<LogicGameObjectManager>((string)reader["GameObjects"], Settings);
                         }
@@ -422,8 +468,8 @@ namespace RetroClash.Database
                         cmd.Prepare();
                         var reader = await cmd.ExecuteReaderAsync();
 
-                        while (await reader.ReadAsync())
-                            alliance = JsonConvert.DeserializeObject<Alliance>((string)reader["Data"], Settings);
+                        while (await reader.ReadAsync()) { 
+                            alliance = JsonConvert.DeserializeObject<Alliance>((string)reader["Data"], Settings);}
                     }
 
                     await connection.CloseAsync();
@@ -450,7 +496,7 @@ namespace RetroClash.Database
 
                     using (var cmd =
                         new MySqlCommand(
-                            $"UPDATE `player` SET `Avatar`=@avatar, `GameObjects`=@objects WHERE PlayerId = '{player.AccountId}'",
+                            $"UPDATE `player` SET `Score`='{player.Score}', `Language`='{player.Language}', `Avatar`=@avatar, `GameObjects`=@objects WHERE PlayerId = '{player.AccountId}'",
                             connection))
                     {
 #pragma warning disable 618

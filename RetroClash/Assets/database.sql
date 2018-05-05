@@ -13,6 +13,8 @@ CREATE TABLE IF NOT EXISTS `clan` (
 
 CREATE TABLE IF NOT EXISTS `player` (
   `PlayerId` bigint(20) NOT NULL,
+  `Score` bigint(20) NOT NULL,
+  `Language` text CHARACTER SET utf8mb4 NOT NULL,
   `Avatar` text CHARACTER SET utf8mb4 NOT NULL,
   `GameObjects` text CHARACTER SET utf8mb4 NOT NULL,
   PRIMARY KEY (`PlayerId`)
