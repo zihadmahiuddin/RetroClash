@@ -6,6 +6,7 @@ USE `u679954513_rcdb`;
 
 CREATE TABLE IF NOT EXISTS `clan` (
   `ClanId` bigint(20) NOT NULL,
+  `Score` bigint(20) NOT NULL,
   `Data` text CHARACTER SET utf8mb4 NOT NULL,
   PRIMARY KEY (`ClanId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

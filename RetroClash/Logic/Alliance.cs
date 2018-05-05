@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using RetroClash.Extensions;
@@ -18,7 +19,7 @@ namespace RetroClash.Logic
             Id = id;
             Name = "RetroClash";
             Description = "RetroClash Clan";
-            Badge = 0;
+            Badge = 13000000;
             Type = 0;
             RequiredScore = 0;
 
@@ -42,6 +43,9 @@ namespace RetroClash.Logic
 
         [JsonProperty("alliance_required_score")]
         public int RequiredScore { get; set; }
+
+        [JsonIgnore]
+        public int Score => Members.Sum(m => m.Value.Score) / 2;
 
         [JsonProperty("members")]
         public Dictionary<long, AllianceMember> Members { get; set; }
@@ -67,7 +71,7 @@ namespace RetroClash.Logic
             await stream.WriteStringAsync(Name); // Name
             await stream.WriteIntAsync(Badge); // Badge
             await stream.WriteIntAsync(Type); // Type
-            await stream.WriteIntAsync(0); // Member Count
+            await stream.WriteIntAsync(Members.Count); // Member Count
             await stream.WriteIntAsync(0); // Score
             await stream.WriteIntAsync(RequiredScore); // Required Score
         }

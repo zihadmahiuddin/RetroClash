@@ -11,10 +11,11 @@ namespace RetroClash.Logic.Slots
         {
         }
 
-        public AllianceMember(long id, int role)
+        public AllianceMember(long id, int role, int score)
         {
             AccountId = id;
             Role = role;
+            Score = score;
         }
 
         [JsonProperty("account_id")]
@@ -22,6 +23,9 @@ namespace RetroClash.Logic.Slots
 
         [JsonProperty("role")]
         public int Role { get; set; }
+
+        [JsonProperty("score")]
+        public int Score { get; set; }
 
         public async Task<byte[]> AllianceMemberEntry(int order)
         {
@@ -33,8 +37,8 @@ namespace RetroClash.Logic.Slots
                 await stream.WriteStringAsync(player.Name); // Name
                 await stream.WriteIntAsync(Role); // Role
                 await stream.WriteIntAsync(player.ExpLevel); // Exp Level
-                await stream.WriteIntAsync(LogicUtils.GetLeagueByScore(player.Score)); // League Type
-                await stream.WriteIntAsync(player.Score); // Score
+                await stream.WriteIntAsync(LogicUtils.GetLeagueByScore(Score)); // League Type
+                await stream.WriteIntAsync(Score); // Score
                 await stream.WriteIntAsync(0); // Donations
                 await stream.WriteIntAsync(0); // Donations Received
                 await stream.WriteIntAsync(order); // Order
