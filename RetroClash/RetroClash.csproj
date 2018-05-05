@@ -167,6 +167,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Protocol\Command.cs" />
     <Compile Include="Protocol\Commands\Client\LogicBuyShield.cs" />
+    <Compile Include="Protocol\Commands\Client\LogicEndCombat.cs" />
     <Compile Include="Protocol\Commands\Client\LogicClearObstacle.cs" />
     <Compile Include="Protocol\Commands\Client\LogicLeagueNotificationsSeen.cs" />
     <Compile Include="Protocol\Commands\Client\LogicClaimAchievementReward.cs" />

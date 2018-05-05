@@ -34,6 +34,7 @@ namespace RetroClash.Protocol
                 {539, typeof(LogicNewsSeen)},
                 {544, typeof(LogicEditModeShown)},
                 {600, typeof(LogicPlaceAttacker)},
+                {603, typeof(LogicEndCombat)},
                 {604, typeof(LogicCastSpell)},
                 {700, typeof(LogicMatchmaking)},
                 {701, typeof(LogicCommandFailed)}
