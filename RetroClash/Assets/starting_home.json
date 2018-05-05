@@ -19,6 +19,7 @@
       "x": 26,
       "y": 19,
       "units": [
+
       ],
       "storage_type": 0
     },
@@ -51,10 +52,13 @@
     }
   ],
   "obstacles": [
+
   ],
   "traps": [
+
   ],
   "decos": [
+
   ],
   "respawnVars": {
     "secondsFromLastRespawn": 0,
@@ -62,5 +66,6 @@
     "obstacleClearCounter": 0
   },
   "cooldowns": [
+
   ]
 }

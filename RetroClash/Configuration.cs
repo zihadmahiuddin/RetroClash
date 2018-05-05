@@ -6,35 +6,40 @@ namespace RetroClash
 {
     public class Configuration
     {
-        [JsonIgnore] public const int MaxClients = 1000;
+        [JsonIgnore]
+        public const int MaxClients = 1000;
 
-        [JsonIgnore] public const int OpsToPreAlloc = 2;
+        [JsonIgnore]
+        public const int OpsToPreAlloc = 2;
 
-        [JsonIgnore] public const int BufferSize = 1024;
+        [JsonIgnore]
+        public const int BufferSize = 1024;
 
-        [JsonIgnore] public static bool Debug = false;
+        [JsonIgnore]
+        public static bool Debug = false;
 
-        [JsonIgnore] public static bool Maintenance = false;
+        [JsonIgnore]
+        public static bool Maintenance = false;
 
         [JsonProperty("encryption_key")] public string EncryptionKey = "fhsd6f86f67rt8fw78fw789we78r9789wer6re";
 
-        [JsonProperty("mysql_database")] public string MySqlDatabase = "rcdb";
+        [JsonProperty("update_url")] public string UpdateUrl = "https://retroclash.pw/";
 
-        [JsonProperty("mysql_password")] public string MySqlPassword = "";
-
-        [JsonProperty("mysql_server")] public string MySqlServer = "127.0.0.1";
+        [JsonProperty("patch_url")] public string PatchUrl = "";
 
         [JsonProperty("mysql_user")] public string MySqlUserId = "root";
 
-        [JsonProperty("patch_url")] public string PatchUrl = "";
+        [JsonProperty("mysql_server")] public string MySqlServer = "127.0.0.1";
+
+        [JsonProperty("mysql_password")] public string MySqlPassword = "";
+
+        [JsonProperty("mysql_database")] public string MySqlDatabase = "rcdb";
 
         [JsonProperty("redis_password")] public string RedisPassword = "";
 
         [JsonProperty("redis_server")] public string RedisServer = "127.0.0.1";
 
         [JsonProperty("server_port")] public int ServerPort = 9339;
-
-        [JsonProperty("update_url")] public string UpdateUrl = "https://retroclash.pw/";
 
         public void Initialize()
         {
@@ -76,5 +81,6 @@ namespace RetroClash
                     Environment.Exit(0);
                 }
         }
+
     }
 }

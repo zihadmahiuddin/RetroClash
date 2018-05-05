@@ -12,24 +12,13 @@ namespace RetroClash.Logic
 {
     public class Player : IDisposable
     {
-        [JsonProperty("achievements")] public Achievements Achievements = new Achievements();
-
-        [JsonIgnore] public LogicGameObjectManager LogicGameObjectManager = new LogicGameObjectManager();
-
-        [JsonIgnore] public Timer Timer = new Timer(5000)
-        {
-            AutoReset = true
-        };
-
-        [JsonProperty("units")] public Units Units = new Units();
-
         public Player(long id, string token)
         {
             AccountId = id;
 
             Name = "RetroClash";
             PassToken = token;
-            ExpLevel = 1;
+            ExpLevel = 1;      
             Score = 2000;
             TutorialSteps = 10;
             Language = "en";
@@ -58,6 +47,15 @@ namespace RetroClash.Logic
         [JsonProperty("ip_address")]
         public string IpAddress { get; set; }
 
+        [JsonProperty("units")]
+        public Units Units = new Units();      
+
+        [JsonProperty("achievements")]
+        public Achievements Achievements = new Achievements();
+
+        [JsonProperty("Shield")]
+        public LogicShield Shield = new LogicShield();
+
         [JsonIgnore]
         public int Score { get; set; }
 
@@ -65,17 +63,16 @@ namespace RetroClash.Logic
         public string Language { get; set; }
 
         [JsonIgnore]
+        public LogicGameObjectManager LogicGameObjectManager = new LogicGameObjectManager();
+
+        [JsonIgnore]
         public Device Device { get; set; }
 
-        public void Dispose()
+        [JsonIgnore]
+        public Timer Timer = new Timer(5000)
         {
-            Timer.Stop();
-
-            Timer = null;
-            Device = null;
-            LogicGameObjectManager = null;
-            Units = null;
-        }
+            AutoReset = true            
+        };
 
         public async Task LogicClientHome(MemoryStream stream)
         {
@@ -85,8 +82,8 @@ namespace RetroClash.Logic
 
             await stream.WriteStringAsync(LogicGameObjectManager.Json);
 
-            await stream.WriteIntAsync(0); // Defense Rating
-            await stream.WriteIntAsync(0); // Defense Factor
+            await stream.WriteIntAsync(Shield.ShieldSecondsLeft); 
+            await stream.WriteIntAsync(0); 
             await stream.WriteIntAsync(0);
         }
 
@@ -189,7 +186,9 @@ namespace RetroClash.Logic
 
             await stream.WriteIntAsync(Achievements.Count);
             foreach (var achievement in Achievements)
+            {
                 await stream.WriteIntAsync(achievement.Id);
+            }
 
             await stream.WriteIntAsync(Achievements.Count); // Achievement Progress DataSlot Count
             foreach (var achievement in Achievements)
@@ -231,6 +230,16 @@ namespace RetroClash.Logic
         public async void SaveCallback(object state, ElapsedEventArgs args)
         {
             await MySQL.SavePlayer(this);
+        }
+
+        public void Dispose()
+        {
+            Timer.Stop();
+
+            Timer = null;
+            Device = null;
+            LogicGameObjectManager = null;
+            Units = null;
         }
     }
 }

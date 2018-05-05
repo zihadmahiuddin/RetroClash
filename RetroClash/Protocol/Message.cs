@@ -28,13 +28,6 @@ namespace RetroClash.Protocol
         public ushort Length { get; set; }
         public ushort Version { get; set; }
 
-        public void Dispose()
-        {
-            Stream = null;
-            Reader = null;
-            Device = null;
-        }
-
         public virtual void Decrypt()
         {
             var buffer = Reader.ReadBytes(Length);
@@ -110,6 +103,13 @@ namespace RetroClash.Protocol
         public bool IsClientToServerMessage()
         {
             return Id - 0x2710 < 0x2710;
+        }
+
+        public void Dispose()
+        {
+            Stream = null;
+            Reader = null;
+            Device = null;          
         }
     }
 }

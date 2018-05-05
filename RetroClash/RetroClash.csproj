@@ -152,6 +152,7 @@
     <Compile Include="Logic\Manager\Items\UnitProd.cs" />
     <Compile Include="Files\Levels.cs" />
     <Compile Include="Logic\Manager\LogicGameObjectManager.cs" />
+    <Compile Include="Logic\Manager\LogicShield.cs" />
     <Compile Include="Logic\Manager\Units.cs" />
     <Compile Include="Logic\Slots\Achievements.cs" />
     <Compile Include="Logic\Slots\AllianceMember.cs" />
@@ -165,6 +166,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Protocol\Command.cs" />
+    <Compile Include="Protocol\Commands\Client\LogicBuyShield.cs" />
     <Compile Include="Protocol\Commands\Client\LogicLeagueNotificationsSeen.cs" />
     <Compile Include="Protocol\Commands\Client\LogicClaimAchievementReward.cs" />
     <Compile Include="Protocol\Commands\Client\LogicSellBuilding.cs" />

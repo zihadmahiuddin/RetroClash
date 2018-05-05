@@ -29,7 +29,7 @@ namespace RetroClash
 
             //Csv = new Csv();
             Fingerprint = new Fingerprint();
-            ;
+            
             Levels = new Levels();
             Cache = new Cache();
             _mysql = new MySQL();

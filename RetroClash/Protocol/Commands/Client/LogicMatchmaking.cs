@@ -17,6 +17,9 @@ namespace RetroClash.Protocol.Commands.Client
             {
                 Enemy = Resources.Cache.Random
             });
+
+            if (Device.Player.Shield.IsShieldActive)
+                Device.Player.Shield.RemoveShield();
         }
     }
 }

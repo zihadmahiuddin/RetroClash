@@ -23,6 +23,7 @@ namespace RetroClash.Protocol
                 //{513, typeof()},
                 {516, typeof(LogicUnitUpgrade)},
                 {517, typeof(LogicSpeedUpUnitUpgrade)},
+                {522, typeof(LogicBuyShield)},
                 //{523, typeof(LogicClaimAchievementReward)},
                 //{524, typeof()},
                 {532, typeof(LogicNewShopItemsSeen)},
