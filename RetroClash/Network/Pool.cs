@@ -26,7 +26,7 @@ namespace RetroClash.Network
 
         public void Push(T item)
         {
-            if (_stack.Count < Configuration.Users)
+            if (_stack.Count < Configuration.MaxClients)
                 _stack.Enqueue(item);
         }
     }

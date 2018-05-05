@@ -25,7 +25,7 @@ namespace RetroClash.Network
         {
             lock (_gate)
             {
-                if (_pool.Count < Configuration.Users)
+                if (_pool.Count < Configuration.MaxClients)
                     _pool.Push(args);
             }
         }

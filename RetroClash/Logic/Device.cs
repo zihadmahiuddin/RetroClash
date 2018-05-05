@@ -14,7 +14,7 @@ namespace RetroClash.Logic
     {
         public Rc4Core Rc4 = new Rc4Core();
         public State State = State.Login;
-        public Token Token { get; set; }
+        public UserToken Token { get; set; }
         public Player Player { get; set; }
         public Socket Socket { get; set; }      
 
@@ -25,9 +25,7 @@ namespace RetroClash.Logic
                 {
                     var identifier = reader.ReadUInt16();
 
-                    reader.Seek(1, SeekOrigin.Current);
-
-                    var length = reader.ReadUInt16();
+                    var length = (ushort)reader.ReadUInt24();
 
                     if (buffer.Length - 7 < length) return;
 

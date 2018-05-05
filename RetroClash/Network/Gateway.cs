@@ -12,38 +12,14 @@ namespace RetroClash.Network
     {
         private readonly SocketAsyncEventArgsPool _acceptPool = new SocketAsyncEventArgsPool();
         private readonly Pool<byte[]> _bufferPool = new Pool<byte[]>();
-        private readonly SocketAsyncEventArgsPool _readPool = new SocketAsyncEventArgsPool();
-        private readonly SocketAsyncEventArgsPool _writePool = new SocketAsyncEventArgsPool();
+        private readonly SocketAsyncEventArgsPool _writeReadArgsPool = new SocketAsyncEventArgsPool();
         public int ConnectedSockets;
-        public Socket Listener;
 
         public Gateway()
         {
             try
             {
-                Parallel.For(
-                    0,
-                    Configuration.Users,
-                    index =>
-                    {
-                        var readEvent = new SocketAsyncEventArgs();
-                        readEvent.Completed += OnIoCompleted;
-                        _readPool.Enqueue(readEvent);
-
-                        var writerEvent = new SocketAsyncEventArgs();
-                        writerEvent.Completed += OnIoCompleted;
-                        _writePool.Enqueue(writerEvent);
-                    });
-
-                Parallel.For(
-                    0,
-                    80,
-                    index =>
-                    {
-                        var acceptEvent = new SocketAsyncEventArgs();
-                        acceptEvent.Completed += OnIoCompleted;
-                        _acceptPool.Enqueue(acceptEvent);
-                    });
+                //BufferManager = new BufferManager(Configuration.BufferSize * Configuration.MaxClients * Configuration.OpsToPreAlloc, Configuration.OpsToPreAlloc);
 
                 Listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)
                 {
@@ -53,8 +29,25 @@ namespace RetroClash.Network
                     NoDelay = true
                 };
 
+                //BufferManager.InitBuffer();
+
+                for (var i = 0; i < Configuration.MaxClients; i++)
+                {
+                    var readWriteEventArgs = new SocketAsyncEventArgs();
+                    readWriteEventArgs.Completed += OnIoCompleted;
+                    //BufferManager.SetBuffer(readWriteEventArgs);
+                    _writeReadArgsPool.Enqueue(readWriteEventArgs);
+                }
+
+                for (var i = 0; i < Configuration.OpsToPreAlloc; i++)
+                {
+                    var acceptEvent = new SocketAsyncEventArgs();
+                    acceptEvent.Completed += OnIoCompleted;
+                    _acceptPool.Enqueue(acceptEvent);
+                }
+
                 Listener.Bind(new IPEndPoint(IPAddress.Any, Resources.Configuration.ServerPort));
-                Listener.Listen(100);
+                Listener.Listen(Configuration.MaxClients);
 
                 Console.WriteLine($"RetroClash is listening on {Listener.LocalEndPoint}. Let's play Clash of Clans!");
 
@@ -66,6 +59,9 @@ namespace RetroClash.Network
                     Console.WriteLine(exception);
             }
         }
+
+        //public BufferManager BufferManager { get; set; }
+        public Socket Listener { get; set; }
 
         public byte[] GetBuffer => _bufferPool.Pop ?? new byte[Configuration.BufferSize];
 
@@ -90,7 +86,7 @@ namespace RetroClash.Network
 
             if (asyncEvent.SocketError == SocketError.Success)
             {
-                var readEvent = _readPool.Dequeue();
+                var readEvent = _writeReadArgsPool.Dequeue();
 
                 if (readEvent == null)
                 {
@@ -108,7 +104,7 @@ namespace RetroClash.Network
                     readEvent.AcceptSocket = socket;
 
                     var device = new Device {Socket = socket};
-                    device.Token = new Token(readEvent, device);
+                    device.Token = new UserToken(readEvent, device);
 
                     Interlocked.Increment(ref ConnectedSockets);
 
@@ -149,7 +145,7 @@ namespace RetroClash.Network
             }
             else
             {
-                var token = (Token) asyncEvent.UserToken;
+                var token = (UserToken) asyncEvent.UserToken;
 
                 await token.SetData();
 
@@ -174,7 +170,7 @@ namespace RetroClash.Network
             try
             {
                 while (true)
-                    if (!((Token) asyncEvent.UserToken).Device.Socket.ReceiveAsync(asyncEvent))
+                    if (!((UserToken) asyncEvent.UserToken).Device.Socket.ReceiveAsync(asyncEvent))
                         await ProcessReceive(asyncEvent, false);
                     else
                         break;
@@ -195,16 +191,14 @@ namespace RetroClash.Network
             {
                 Interlocked.Decrement(ref ConnectedSockets);
 
-                var token = (Token) asyncEvent.UserToken;
+                var token = (UserToken) asyncEvent.UserToken;
 
                 if (token.Device.Player != null)
-                {
                     Resources.Cache.RemovePlayer(token.Device.Player.AccountId);
-                }
             }
             catch (Exception exception)
             {
-                if(Configuration.Debug)
+                if (Configuration.Debug)
                     Console.WriteLine(exception);
             }
         }
@@ -213,7 +207,7 @@ namespace RetroClash.Network
         {
             try
             {
-                var writeEvent = _writePool.Dequeue();
+                var writeEvent = _writeReadArgsPool.Dequeue();
 
                 if (writeEvent == null)
                 {
@@ -248,7 +242,7 @@ namespace RetroClash.Network
 
         public async Task StartSend(SocketAsyncEventArgs asyncEvent)
         {
-            var client = (Token) asyncEvent.UserToken;
+            var client = (UserToken) asyncEvent.UserToken;
             var socket = client.Device.Socket;
 
             try
@@ -327,10 +321,7 @@ namespace RetroClash.Network
             asyncEvent.SetBuffer(null, 0, 0);
             asyncEvent.AcceptSocket = null;
 
-            if (read)
-                _readPool.Enqueue(asyncEvent);
-            else
-                _writePool.Enqueue(asyncEvent);
+            _writeReadArgsPool.Enqueue(asyncEvent);
 
             Recycle(buffer);
         }

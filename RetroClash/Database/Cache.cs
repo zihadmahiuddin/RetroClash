@@ -8,10 +8,22 @@ namespace RetroClash.Database
 {
     public class Cache
     {
-        public Dictionary<long, Player> Players = new Dictionary<long, Player>();
-        public Dictionary<long, Alliance> Alliances = new Dictionary<long, Alliance>();
-
         public readonly object Gate = new object();
+        public Dictionary<long, Alliance> Alliances = new Dictionary<long, Alliance>();
+        public Dictionary<long, Player> Players = new Dictionary<long, Player>();
+
+        public Player Random
+        {
+            get
+            {
+                if (Players.Count <= 1) return null;
+
+                lock (Gate)
+                {
+                    return Players.ElementAt(new Random().Next(0, Players.Count - 1)).Value;
+                }
+            }
+        }
 
         public void AddPlayer(Player player, Device device)
         {
@@ -20,9 +32,7 @@ namespace RetroClash.Database
                 try
                 {
                     if (Players.ContainsKey(player.AccountId))
-                    {
                         Players.Remove(player.AccountId);
-                    }
 
                     player.Device = device;
 
@@ -33,7 +43,7 @@ namespace RetroClash.Database
                 }
                 catch (Exception exception)
                 {
-                    if(Configuration.Debug)
+                    if (Configuration.Debug)
                         Console.WriteLine(exception);
                 }
             }
@@ -44,9 +54,7 @@ namespace RetroClash.Database
             lock (Gate)
             {
                 if (Players.ContainsKey(id))
-                {
                     return Players[id];
-                }
             }
 
             return await MySQL.GetPlayer(id);
@@ -57,9 +65,7 @@ namespace RetroClash.Database
             lock (Gate)
             {
                 if (Alliances.ContainsKey(id))
-                {
                     return Alliances[id];
-                }
             }
 
             return await MySQL.GetAlliance(id);
@@ -76,27 +82,14 @@ namespace RetroClash.Database
                     var player = Players[id];
 
                     player.Timer.Stop();
-                    MySQL.SavePlayer(player).Wait();    
-                    
+                    MySQL.SavePlayer(player).Wait();
+
                     Players.Remove(id);
                 }
                 catch (Exception exception)
                 {
                     if (Configuration.Debug)
                         Console.WriteLine(exception);
-                }
-            }
-        }
-
-        public Player Random
-        {
-            get
-            {
-                var random = new Random();
-
-                lock (Gate)
-                {
-                    return Players.ElementAt(random.Next(Players.Count - 1)).Value;
                 }
             }
         }

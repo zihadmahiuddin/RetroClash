@@ -7,10 +7,13 @@ namespace RetroClash
     public class Configuration
     {
         [JsonIgnore]
-        public const int Users = 1000;
+        public const int MaxClients = 1000;
 
         [JsonIgnore]
-        public const int BufferSize = 2048;
+        public const int OpsToPreAlloc = 2;
+
+        [JsonIgnore]
+        public const int BufferSize = 1024;
 
         [JsonIgnore]
         public static bool Debug = false;

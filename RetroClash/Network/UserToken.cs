@@ -6,27 +6,26 @@ using RetroClash.Logic;
 
 namespace RetroClash.Network
 {
-    public class Token : IDisposable
+    public class UserToken : IDisposable
     {
-        private readonly SocketAsyncEventArgs _args;
+        public SocketAsyncEventArgs ReceiveArgs { get; set; }
+        public Device Device { get; set; }
+        public MemoryStream Stream { get; set; }
 
-        public Device Device;
-        public MemoryStream Stream;
-
-        public Token(SocketAsyncEventArgs args, Device device)
+        public UserToken(SocketAsyncEventArgs args, Device device)
         {
             Device = device;
             Device.Token = this;
 
-            _args = args;
-            _args.UserToken = this;
+            ReceiveArgs = args;
+            ReceiveArgs.UserToken = this;
 
             Stream = new MemoryStream();
         }
 
         public async Task SetData()
         {
-            await Stream.WriteAsync(_args.Buffer, 0, _args.BytesTransferred);
+            await Stream.WriteAsync(ReceiveArgs.Buffer, 0, ReceiveArgs.BytesTransferred);
         }
 
         public void Reset()

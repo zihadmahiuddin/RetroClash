@@ -157,10 +157,11 @@
     <Compile Include="Logic\Slots\AllianceMember.cs" />
     <Compile Include="Logic\Player.cs" />
     <Compile Include="Logic\Slots\Items\Achievement.cs" />
+    <Compile Include="Network\BufferManager.cs" />
     <Compile Include="Network\Gateway.cs" />
     <Compile Include="Network\Pool.cs" />
     <Compile Include="Network\SocketAsyncEventArgsPool.cs" />
-    <Compile Include="Network\Token.cs" />
+    <Compile Include="Network\UserToken.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Protocol\Command.cs" />

@@ -9,17 +9,21 @@ namespace RetroClash.Logic.Manager
 {
     public class LogicGameObjectManager
     {
-        [JsonProperty("buildings")]
-        public List<Building> Buildings = new List<Building>();
+        [JsonProperty("buildings")] public List<Building> Buildings = new List<Building>();
 
-        [JsonProperty("obstacles")]
-        public List<Obstacle> Obstacles = new List<Obstacle>();
+        [JsonProperty("decos")] public List<Decoration> Decorations = new List<Decoration>();
 
-        [JsonProperty("traps")]
-        public List<Trap> Traps = new List<Trap>();
+        [JsonProperty("obstacles")] public List<Obstacle> Obstacles = new List<Obstacle>();
 
-        [JsonProperty("decos")]
-        public List<Decoration> Decorations = new List<Decoration>();
+        [JsonIgnore] public JsonSerializerSettings Settings = new JsonSerializerSettings
+        {
+            MissingMemberHandling = MissingMemberHandling.Ignore,
+            DefaultValueHandling = DefaultValueHandling.Ignore,
+            NullValueHandling = NullValueHandling.Ignore,
+            Formatting = Formatting.None
+        };
+
+        [JsonProperty("traps")] public List<Trap> Traps = new List<Trap>();
 
         [JsonProperty("last_league_rank")]
         public int LastLeagueRank { get; set; }
@@ -29,15 +33,6 @@ namespace RetroClash.Logic.Manager
 
         [JsonProperty("last_news_seen")]
         public int LastNewsSeen { get; set; }
-
-        [JsonIgnore]
-        public JsonSerializerSettings Settings = new JsonSerializerSettings
-        {
-            MissingMemberHandling = MissingMemberHandling.Ignore,
-            DefaultValueHandling = DefaultValueHandling.Ignore,
-            NullValueHandling = NullValueHandling.Ignore,
-            Formatting = Formatting.None
-        };
 
         [JsonIgnore]
         public string Json
@@ -51,23 +46,66 @@ namespace RetroClash.Logic.Manager
 
                     Buildings.Clear();
                     foreach (var token in _Object["buildings"])
-                        Buildings.Add(JsonConvert.DeserializeObject<Building>(JsonConvert.SerializeObject(token), Settings));
+                    {
+                        var building =
+                            JsonConvert.DeserializeObject<Building>(JsonConvert.SerializeObject(token), Settings);
 
-                    Obstacles.Clear();
-                    foreach (var token in _Object["obstacles"])
-                        Obstacles.Add(JsonConvert.DeserializeObject<Obstacle>(JsonConvert.SerializeObject(token), Settings));
+                        building.Id = building.Id <= 0
+                            ? Buildings.Count > 0
+                                ? Buildings.Max(d => d.Id) + 1
+                                : 500000000
+                            : building.Id;
+
+                        Buildings.Add(building);
+                    }
 
                     Traps.Clear();
                     foreach (var token in _Object["traps"])
-                        Traps.Add(JsonConvert.DeserializeObject<Trap>(JsonConvert.SerializeObject(token), Settings));
+                    {
+                        var trap = JsonConvert.DeserializeObject<Trap>(JsonConvert.SerializeObject(token), Settings);
+
+                        trap.Id = trap.Id <= 0
+                            ? Traps.Count > 0
+                                ? Traps.Max(d => d.Id) + 1
+                                : 504000000
+                            : trap.Id;
+
+                        Traps.Add(trap);
+                    }
 
                     Decorations.Clear();
                     foreach (var token in _Object["decos"])
-                        Decorations.Add(JsonConvert.DeserializeObject<Decoration>(JsonConvert.SerializeObject(token), Settings));
+                    {
+                        var deco = JsonConvert.DeserializeObject<Decoration>(JsonConvert.SerializeObject(token),
+                            Settings);
+
+                        deco.Id = deco.Id <= 0
+                            ? Decorations.Count > 0
+                                ? Decorations.Max(d => d.Id) + 1
+                                : 506000000
+                            : deco.Id;
+
+                        Decorations.Add(deco);
+                    }
+
+                    Obstacles.Clear();
+                    foreach (var token in _Object["obstacles"])
+                    {
+                        var obstacle =
+                            JsonConvert.DeserializeObject<Obstacle>(JsonConvert.SerializeObject(token), Settings);
+
+                        obstacle.Id = obstacle.Id <= 0
+                            ? Obstacles.Count > 0
+                                ? Obstacles.Max(d => d.Id) + 1
+                                : 508000000
+                            : obstacle.Id;
+
+                        Obstacles.Add(obstacle);
+                    }
                 }
                 catch (Exception exception)
                 {
-                    if(Configuration.Debug)
+                    if (Configuration.Debug)
                         Console.WriteLine(exception);
                 }
             }
@@ -116,11 +154,11 @@ namespace RetroClash.Logic.Manager
 
             Buildings.Add(new Building
             {
-                    Data = id,
-                    Id = globalId,
-                    X = x,
-                    Y = y,
-                    Level = 0
+                Data = id,
+                Id = globalId,
+                X = x,
+                Y = y,
+                Level = 0
             });
         }
 
