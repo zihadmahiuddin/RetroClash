@@ -6,7 +6,7 @@ using RetroClash.Logic.Enums;
 namespace RetroClash.Protocol.Messages.Server
 {
     public class VisitedHomeData : Message
-    { 
+    {
         public VisitedHomeData(Device device) : base(device)
         {
             Id = 24113;

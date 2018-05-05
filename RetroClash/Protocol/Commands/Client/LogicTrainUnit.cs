@@ -7,7 +7,7 @@ namespace RetroClash.Protocol.Commands.Client
     public class LogicTrainUnit : Command
     {
         public LogicTrainUnit(Device device, Reader reader) : base(device, reader)
-        {            
+        {
         }
 
         public int UnitId { get; set; }

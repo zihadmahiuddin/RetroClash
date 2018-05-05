@@ -8,7 +8,7 @@ namespace RetroClash.Protocol.Messages.Client
     public class VisitHome : Message
     {
         public VisitHome(Device device, Reader reader) : base(device, reader)
-        {           
+        {
         }
 
         public long UserId { get; set; }

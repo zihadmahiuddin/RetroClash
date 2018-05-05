@@ -7,7 +7,7 @@ namespace RetroClash.Protocol.Commands.Client
     public class LogicMoveMultipleBuildings : Command
     {
         public LogicMoveMultipleBuildings(Device device, Reader reader) : base(device, reader)
-        {           
+        {
         }
 
         public int Count { get; set; }

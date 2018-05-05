@@ -7,7 +7,7 @@ namespace RetroClash.Protocol.Commands.Client
     public class LogicMoveBuilding : Command
     {
         public LogicMoveBuilding(Device device, Reader reader) : base(device, reader)
-        {           
+        {
         }
 
         public int BuildingId { get; set; }

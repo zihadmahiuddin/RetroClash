@@ -7,7 +7,7 @@ namespace RetroClash.Protocol.Commands.Client
     public class LogicCastSpell : Command
     {
         public LogicCastSpell(Device device, Reader reader) : base(device, reader)
-        {         
+        {
         }
 
         public int SpellId { get; set; }

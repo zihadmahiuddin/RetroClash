@@ -8,7 +8,7 @@ namespace RetroClash.Protocol.Messages.Client
     public class AttackNpc : Message
     {
         public AttackNpc(Device device, Reader reader) : base(device, reader)
-        {        
+        {
         }
 
         public int LevelId { get; set; }

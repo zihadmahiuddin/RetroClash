@@ -43,9 +43,7 @@ namespace RetroClash.Files
             try
             {
                 foreach (var file in Gamefiles)
-                {
                     Tables.Initialize(new Table(file.Item1), file.Item2);
-                }
             }
             catch (Exception exception)
             {

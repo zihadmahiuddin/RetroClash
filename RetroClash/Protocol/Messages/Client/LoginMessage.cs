@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
 using RetroClash.Database;
 using RetroClash.Extensions;
@@ -55,9 +54,10 @@ namespace RetroClash.Protocol.Messages.Client
         public override async Task Process()
         {
             if (Device.State != States.State.Home)
-            {
                 if (Configuration.Maintenance)
+                {
                     await Resources.Gateway.Send(new LoginFailed(Device) {ErrorCode = 10});
+                }
                 else
                 {
                     if (AccountId == 0)
@@ -77,7 +77,9 @@ namespace RetroClash.Protocol.Messages.Client
                             await Resources.Gateway.Send(new OwnHomeData(Device));
                         }
                         else
+                        {
                             await Resources.Gateway.Send(new OutOfSync(Device));
+                        }
                     }
                     else
                     {
@@ -92,10 +94,11 @@ namespace RetroClash.Protocol.Messages.Client
                             await Resources.Gateway.Send(new OwnHomeData(Device));
                         }
                         else
+                        {
                             await Resources.Gateway.Send(new OutOfSync(Device));
+                        }
                     }
                 }
-            }
         }
     }
 }

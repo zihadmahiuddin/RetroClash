@@ -8,7 +8,7 @@ namespace RetroClash.Protocol.Messages.Client
     public class BindGoogleServiceAccount : Message
     {
         public BindGoogleServiceAccount(Device device, Reader reader) : base(device, reader)
-        {           
+        {
         }
 
         public override void Decode()

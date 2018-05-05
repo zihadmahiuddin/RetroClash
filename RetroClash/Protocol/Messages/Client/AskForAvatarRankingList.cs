@@ -8,7 +8,7 @@ namespace RetroClash.Protocol.Messages.Client
     public class AskForAvatarRankingList : Message
     {
         public AskForAvatarRankingList(Device device, Reader reader) : base(device, reader)
-        {            
+        {
         }
 
         public override async Task Process()

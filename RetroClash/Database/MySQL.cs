@@ -234,7 +234,8 @@ namespace RetroClash.Database
 
                     var alliance = new Alliance(await MaxAllianceId() + 1);
 
-                    using (var cmd = new MySqlCommand($"INSERT INTO `clan`(`ClanId`, `Data`) VALUES ({alliance.Id}, @data)",
+                    using (var cmd = new MySqlCommand(
+                        $"INSERT INTO `clan`(`ClanId`, `Data`) VALUES ({alliance.Id}, @data)",
                         connection))
                     {
 #pragma warning disable 618
@@ -307,20 +308,22 @@ namespace RetroClash.Database
             {
                 using (var connection = new MySqlConnection(_connectionString))
                 {
-                    await connection.OpenAsync();            
+                    await connection.OpenAsync();
 
-                    using (var cmd = new MySqlCommand("SELECT * FROM `player` ORDER BY `Score` DESC LIMIT 200", connection))
+                    using (var cmd = new MySqlCommand("SELECT * FROM `player` ORDER BY `Score` DESC LIMIT 200",
+                        connection))
                     {
                         cmd.Prepare();
                         var reader = await cmd.ExecuteReaderAsync();
 
                         while (await reader.ReadAsync())
                         {
-                            var player = JsonConvert.DeserializeObject<Player>((string)reader["Avatar"], Settings);
+                            var player = JsonConvert.DeserializeObject<Player>((string) reader["Avatar"], Settings);
                             player.Score = Convert.ToInt32(reader["Score"]);
                             player.Language = reader["Language"].ToString();
                             player.LogicGameObjectManager =
-                                JsonConvert.DeserializeObject<LogicGameObjectManager>((string)reader["GameObjects"], Settings);
+                                JsonConvert.DeserializeObject<LogicGameObjectManager>((string) reader["GameObjects"],
+                                    Settings);
 
                             list.Add(player);
                         }
@@ -350,18 +353,22 @@ namespace RetroClash.Database
                 {
                     await connection.OpenAsync();
 
-                    using (var cmd = new MySqlCommand($"SELECT * FROM `player` WHERE Language = '{language}' ORDER BY `Score` DESC LIMIT 200", connection))
+                    using (var cmd =
+                        new MySqlCommand(
+                            $"SELECT * FROM `player` WHERE Language = '{language}' ORDER BY `Score` DESC LIMIT 200",
+                            connection))
                     {
                         cmd.Prepare();
                         var reader = await cmd.ExecuteReaderAsync();
 
                         while (await reader.ReadAsync())
                         {
-                            var player = JsonConvert.DeserializeObject<Player>((string)reader["Avatar"], Settings);
+                            var player = JsonConvert.DeserializeObject<Player>((string) reader["Avatar"], Settings);
                             player.Score = Convert.ToInt32(reader["Score"]);
                             player.Language = reader["Language"].ToString();
                             player.LogicGameObjectManager =
-                                JsonConvert.DeserializeObject<LogicGameObjectManager>((string)reader["GameObjects"], Settings);
+                                JsonConvert.DeserializeObject<LogicGameObjectManager>((string) reader["GameObjects"],
+                                    Settings);
 
                             list.Add(player);
                         }
@@ -389,15 +396,16 @@ namespace RetroClash.Database
             {
                 using (var connection = new MySqlConnection(_connectionString))
                 {
-                    await connection.OpenAsync();                   
+                    await connection.OpenAsync();
 
-                    using (var cmd = new MySqlCommand($"SELECT * FROM `clan` order by RAND() limit {limit}", connection))
+                    using (var cmd = new MySqlCommand($"SELECT * FROM `clan` order by RAND() limit {limit}",
+                        connection))
                     {
                         cmd.Prepare();
                         var reader = await cmd.ExecuteReaderAsync();
 
                         while (await reader.ReadAsync())
-                            list.Add(JsonConvert.DeserializeObject<Alliance>((string)reader["Data"], Settings));
+                            list.Add(JsonConvert.DeserializeObject<Alliance>((string) reader["Data"], Settings));
                     }
 
                     await connection.CloseAsync();
@@ -431,11 +439,12 @@ namespace RetroClash.Database
 
                         while (await reader.ReadAsync())
                         {
-                            player = JsonConvert.DeserializeObject<Player>((string)reader["Avatar"], Settings);
+                            player = JsonConvert.DeserializeObject<Player>((string) reader["Avatar"], Settings);
                             player.Score = Convert.ToInt32(reader["Score"]);
                             player.Language = reader["Language"].ToString();
                             player.LogicGameObjectManager =
-                                JsonConvert.DeserializeObject<LogicGameObjectManager>((string)reader["GameObjects"], Settings);
+                                JsonConvert.DeserializeObject<LogicGameObjectManager>((string) reader["GameObjects"],
+                                    Settings);
                         }
                     }
 
@@ -468,8 +477,8 @@ namespace RetroClash.Database
                         cmd.Prepare();
                         var reader = await cmd.ExecuteReaderAsync();
 
-                        while (await reader.ReadAsync()) { 
-                            alliance = JsonConvert.DeserializeObject<Alliance>((string)reader["Data"], Settings);}
+                        while (await reader.ReadAsync())
+                            alliance = JsonConvert.DeserializeObject<Alliance>((string) reader["Data"], Settings);
                     }
 
                     await connection.CloseAsync();
@@ -527,7 +536,8 @@ namespace RetroClash.Database
                 {
                     await connection.OpenAsync();
 
-                    using (var cmd = new MySqlCommand($"UPDATE `player` SET `Data`=@data WHERE ClanId = '{alliance.Id}'",
+                    using (var cmd = new MySqlCommand(
+                        $"UPDATE `player` SET `Data`=@data WHERE ClanId = '{alliance.Id}'",
                         connection))
                     {
 #pragma warning disable 618

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net.Sockets;
 using System.Threading.Tasks;
 using RetroClash.Extensions;
 using RetroClash.Logic;
@@ -29,7 +28,7 @@ namespace RetroClash.Protocol.Messages.Client
             {
                 if (Count > 0)
                     using (var reader =
-                        new Reader(Reader.ReadBytes((int)(Reader.BaseStream.Length - Reader.BaseStream.Position))))
+                        new Reader(Reader.ReadBytes((int) (Reader.BaseStream.Length - Reader.BaseStream.Position))))
                     {
                         for (var index = 0; index < Count; index++)
                         {

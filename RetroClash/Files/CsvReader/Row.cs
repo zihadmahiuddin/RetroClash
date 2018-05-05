@@ -2,8 +2,8 @@
 {
     public class Row
     {
-        readonly int _rowStart;
-        readonly Table _table;
+        private readonly int _rowStart;
+        private readonly Table _table;
 
         public Row(Table table)
         {

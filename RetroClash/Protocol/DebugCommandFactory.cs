@@ -9,9 +9,7 @@ namespace RetroClash.Protocol
 
         public DebugCommandFactory()
         {
-            DebugCommands = new Dictionary<int, Type>
-            {
-            };
+            DebugCommands = new Dictionary<int, Type>();
         }
     }
 }

@@ -7,7 +7,7 @@ namespace RetroClash.Protocol.Commands.Client
     public class LogicSellBuilding : Command
     {
         public LogicSellBuilding(Device device, Reader reader) : base(device, reader)
-        {           
+        {
         }
 
         public int BuildingId { get; set; }

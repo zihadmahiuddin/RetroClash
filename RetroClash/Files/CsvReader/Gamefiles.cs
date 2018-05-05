@@ -17,7 +17,7 @@ namespace RetroClash.Files.CsvReader
 
         public DataTable Get(Gamefile index)
         {
-            return _dataTables[(int)index - 1];
+            return _dataTables[(int) index - 1];
         }
 
         public DataTable Get(int index)

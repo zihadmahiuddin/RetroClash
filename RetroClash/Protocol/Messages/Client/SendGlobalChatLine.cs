@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using RetroClash.Extensions;
 using RetroClash.Logic;
@@ -11,7 +9,7 @@ namespace RetroClash.Protocol.Messages.Client
     public class SendGlobalChatLine : Message
     {
         public SendGlobalChatLine(Device device, Reader reader) : base(device, reader)
-        {        
+        {
         }
 
         public string Message { get; set; }
@@ -24,14 +22,14 @@ namespace RetroClash.Protocol.Messages.Client
         public override async Task Process()
         {
             if (Message.StartsWith("/"))
-            {
                 switch (Message.Split(' ')[0])
                 {
                     case "/help":
                     {
                         await Resources.Gateway.Send(new GlobalChatLine(Device)
                         {
-                            Message = "Available commands:\n\n/help → List of all commands.\n/wall [level] → Set the level of all walls.",
+                            Message =
+                                "Available commands:\n\n/help → List of all commands.\n/wall [level] → Set the level of all walls.",
                             Name = "DebugManager",
                             ExpLevel = 100,
                             League = 16,
@@ -81,9 +79,7 @@ namespace RetroClash.Protocol.Messages.Client
                         break;
                     }
                 }
-            }
             else
-            {
                 await Resources.Gateway.Send(new GlobalChatLine(Device)
                 {
                     Message = Message,
@@ -93,7 +89,6 @@ namespace RetroClash.Protocol.Messages.Client
                     AccountId = Device.Player.AccountId,
                     HomeId = Device.Player.AccountId
                 });
-            }
         }
     }
 }

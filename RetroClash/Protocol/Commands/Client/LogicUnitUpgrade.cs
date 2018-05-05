@@ -7,7 +7,7 @@ namespace RetroClash.Protocol.Commands.Client
     public class LogicUnitUpgrade : Command
     {
         public LogicUnitUpgrade(Device device, Reader reader) : base(device, reader)
-        {            
+        {
         }
 
         public int UnitId { get; set; }

@@ -8,10 +8,6 @@ namespace RetroClash.Network
 {
     public class UserToken : IDisposable
     {
-        public SocketAsyncEventArgs ReceiveArgs { get; set; }
-        public Device Device { get; set; }
-        public MemoryStream Stream { get; set; }
-
         public UserToken(SocketAsyncEventArgs args, Device device)
         {
             Device = device;
@@ -21,6 +17,17 @@ namespace RetroClash.Network
             ReceiveArgs.UserToken = this;
 
             Stream = new MemoryStream();
+        }
+
+        public SocketAsyncEventArgs ReceiveArgs { get; set; }
+        public Device Device { get; set; }
+        public MemoryStream Stream { get; set; }
+
+        public void Dispose()
+        {
+            Device.Dispose();
+            Device = null;
+            Stream = null;
         }
 
         public async Task SetData()
@@ -34,13 +41,6 @@ namespace RetroClash.Network
             Array.Clear(buffer, 0, buffer.Length);
             Stream.Position = 0;
             Stream.SetLength(0);
-        }
-
-        public void Dispose()
-        {
-            Device.Dispose();
-            Device = null;
-            Stream = null;
         }
     }
 }

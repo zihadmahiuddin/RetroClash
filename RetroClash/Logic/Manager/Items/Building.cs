@@ -3,7 +3,7 @@
 namespace RetroClash.Logic.Manager.Items
 {
     public class Building
-    { 
+    {
         [JsonProperty("attack_mode")]
         public bool AttackMode { get; set; }
 
@@ -13,7 +13,7 @@ namespace RetroClash.Logic.Manager.Items
         [JsonProperty("id")]
         public int Id { get; set; }
 
-        [JsonProperty("lvl",  DefaultValueHandling = DefaultValueHandling.Include)]
+        [JsonProperty("lvl", DefaultValueHandling = DefaultValueHandling.Include)]
         public int Level { get; set; }
 
         [JsonProperty("locked")]

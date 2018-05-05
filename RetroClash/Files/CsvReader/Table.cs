@@ -33,23 +33,17 @@ namespace RetroClash.Files.CsvReader
                     var types = reader.ReadLine()?.Replace("\"", string.Empty).Split(',');
                     if (types != null)
                         foreach (var type in types)
-                        {
                             _types.Add(type);
-                        }
 
                     while (!reader.EndOfStream)
                     {
                         var values = reader.ReadLine()?.Replace("\"", string.Empty).Split(',');
 
                         if (values != null && !string.IsNullOrEmpty(values[0]))
-                        {
                             new Row(this);
-                        }
 
-                        for (int i = 0; i < _headers.Count; i++)
-                        {
+                        for (var i = 0; i < _headers.Count; i++)
                             if (values != null) _columns[i].Add(values[i]);
-                        }
                     }
                 }
             }
@@ -70,9 +64,7 @@ namespace RetroClash.Files.CsvReader
         {
             var index = _rows.IndexOf(row);
             if (index == -1)
-            {
                 return 0;
-            }
 
             var c = _columns[columnIndex];
             int nextOffset;
@@ -102,9 +94,7 @@ namespace RetroClash.Files.CsvReader
         public int GetColumnRowCount()
         {
             if (_columns.Count > 0)
-            {
                 return _columns[0].GetSize();
-            }
 
             return 0;
         }

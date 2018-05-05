@@ -52,12 +52,14 @@ namespace RetroClash.Logic.Manager
                         Spells[index].Count += count;
                 }
                 else
+                {
                     Spells.Add(new Unit
                     {
                         Id = id,
                         Level = 0,
                         Count = count
                     });
+                }
             }
             else
             {
@@ -69,12 +71,14 @@ namespace RetroClash.Logic.Manager
                         Troops[index].Count += count;
                 }
                 else
+                {
                     Troops.Add(new Unit
                     {
                         Id = id,
                         Level = 0,
                         Count = count
                     });
+                }
             }
         }
     }

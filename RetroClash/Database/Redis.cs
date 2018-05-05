@@ -25,7 +25,7 @@ namespace RetroClash.Database
         {
             try
             {
-                var config = new ConfigurationOptions { AllowAdmin = true, ConnectTimeout = 10000, ConnectRetry = 10 };
+                var config = new ConfigurationOptions {AllowAdmin = true, ConnectTimeout = 10000, ConnectRetry = 10};
 
                 config.EndPoints.Add(Resources.Configuration.RedisServer, 6379);
 
@@ -37,7 +37,7 @@ namespace RetroClash.Database
             }
             catch (Exception exception)
             {
-                if(Configuration.Debug)
+                if (Configuration.Debug)
                     Console.WriteLine(exception);
             }
         }
@@ -46,8 +46,9 @@ namespace RetroClash.Database
         {
             try
             {
-                await _players.StringSetAsync(player.AccountId.ToString(), 
-                    JsonConvert.SerializeObject(player, Settings) + "#:#:#:#" + player.LogicGameObjectManager.Json, TimeSpan.FromHours(4));
+                await _players.StringSetAsync(player.AccountId.ToString(),
+                    JsonConvert.SerializeObject(player, Settings) + "#:#:#:#" + player.LogicGameObjectManager.Json,
+                    TimeSpan.FromHours(4));
             }
             catch (Exception exception)
             {

@@ -10,7 +10,7 @@ namespace RetroClash.Protocol.Commands.Client
     public class LogicClaimAchievementReward : Command
     {
         public LogicClaimAchievementReward(Device device, Reader reader) : base(device, reader)
-        {           
+        {
         }
 
         public int AchievementId { get; set; }
@@ -26,7 +26,7 @@ namespace RetroClash.Protocol.Commands.Client
             Device.Player.Achievements.Add(new Achievement
             {
                 Id = AchievementId,
-                Data = ((Achievements)Csv.Tables.Get(1).GetDataWithId(Id)).ActionCount
+                Data = ((Achievements) Csv.Tables.Get(1).GetDataWithId(Id)).ActionCount
             });
         }
     }

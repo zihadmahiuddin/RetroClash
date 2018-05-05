@@ -26,6 +26,13 @@ namespace RetroClash.Protocol
         public int Id { get; set; }
         public Reader Reader { get; set; }
 
+        public void Dispose()
+        {
+            Stream = null;
+            Device = null;
+            Reader = null;
+        }
+
         public virtual void Decode()
         {
         }
@@ -42,13 +49,6 @@ namespace RetroClash.Protocol
         {
             await Encode();
             return this;
-        }
-
-        public void Dispose()
-        {
-            Stream = null;
-            Device = null;
-            Reader = null;
         }
     }
 }

@@ -75,12 +75,24 @@ namespace RetroClash.Crypto
             return (num / Pow(2, n)) | highbits;
         }
 
-        internal static ulong LShift(ulong num, ulong n) => num * Pow(2, n) % Pow(2, 32);
+        internal static ulong LShift(ulong num, ulong n)
+        {
+            return num * Pow(2, n) % Pow(2, 32);
+        }
 
-        internal static bool IsNeg(ulong num) => (num & (ulong) Math.Pow(2, 31)) != 0;
+        internal static bool IsNeg(ulong num)
+        {
+            return (num & (ulong) Math.Pow(2, 31)) != 0;
+        }
 
-        internal static ulong Negate(ulong num) => ~num + 1;
+        internal static ulong Negate(ulong num)
+        {
+            return ~num + 1;
+        }
 
-        internal static ulong Pow(ulong x, ulong y) => (ulong) Math.Pow(x, y);
+        internal static ulong Pow(ulong x, ulong y)
+        {
+            return (ulong) Math.Pow(x, y);
+        }
     }
 }

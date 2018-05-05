@@ -7,7 +7,7 @@ namespace RetroClash.Protocol.Commands.Client
     public class LogicBuyTrap : Command
     {
         public LogicBuyTrap(Device device, Reader reader) : base(device, reader)
-        {           
+        {
         }
 
         public int TrapId { get; set; }

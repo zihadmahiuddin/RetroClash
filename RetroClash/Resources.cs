@@ -12,6 +12,7 @@ namespace RetroClash
         public static Cache Cache;
         public static Configuration Configuration;
         public static Levels Levels;
+
         public static Fingerprint Fingerprint;
         //public static Csv Csv;
 
@@ -27,14 +28,15 @@ namespace RetroClash
             Configuration.Initialize();
 
             //Csv = new Csv();
-            Fingerprint = new Fingerprint();;
+            Fingerprint = new Fingerprint();
+            ;
             Levels = new Levels();
             Cache = new Cache();
             _mysql = new MySQL();
             _messagefactory = new MessageFactory();
             _commandfactory = new CommandFactory();
             _debugcommandfactory = new DebugCommandFactory();
-            _apiService = new ApiService(); 
+            _apiService = new ApiService();
 
             Gateway = new Gateway();
         }

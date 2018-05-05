@@ -11,13 +11,13 @@
 
         public static int GetClassId(int type)
         {
-            type = (int)((Reference * (long)type) >> 32);
+            type = (int) ((Reference * (long) type) >> 32);
             return (type >> 18) + (type >> 31);
         }
 
         public static int GetInstanceId(int globalId)
         {
-            var referenceT = (int)((Reference * (long)globalId) >> 32);
+            var referenceT = (int) ((Reference * (long) globalId) >> 32);
             return globalId - 1000000 * ((referenceT >> 18) + (referenceT >> 31));
         }
     }

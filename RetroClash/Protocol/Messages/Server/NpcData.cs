@@ -16,7 +16,7 @@ namespace RetroClash.Protocol.Messages.Server
         public int NpcId { get; set; }
 
         public override async Task Encode()
-        {          
+        {
             await Stream.WriteIntAsync(0);
 
             await Stream.WriteStringAsync(Resources.Levels.NpcLevels[NpcId - 17000000]);
