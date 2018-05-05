@@ -17,6 +17,7 @@ namespace RetroClash.Protocol
                 {502, typeof(LogicUpgradeBuilding)},
                 {503, typeof(LogicSellBuilding)},
                 {504, typeof(LogicSpeedUpConstruction)},
+                {507, typeof(LogicClearObstacle)},
                 {508, typeof(LogicTrainUnit)},
                 {510, typeof(LogicBuyTrap)},
                 {512, typeof(LogicBuyDeco)},
@@ -28,12 +29,14 @@ namespace RetroClash.Protocol
                 //{524, typeof()},
                 {532, typeof(LogicNewShopItemsSeen)},
                 {533, typeof(LogicMoveMultipleBuildings)},
+                {534, typeof(LogicDisbandLeague)},
                 {538, typeof(LogicLeagueNotificationsSeen)},
                 {539, typeof(LogicNewsSeen)},
                 {544, typeof(LogicEditModeShown)},
                 {600, typeof(LogicPlaceAttacker)},
                 {604, typeof(LogicCastSpell)},
-                {700, typeof(LogicMatchmaking)}
+                {700, typeof(LogicMatchmaking)},
+                {701, typeof(LogicCommandFailed)}
             };
         }
     }

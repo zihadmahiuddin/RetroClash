@@ -167,6 +167,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Protocol\Command.cs" />
     <Compile Include="Protocol\Commands\Client\LogicBuyShield.cs" />
+    <Compile Include="Protocol\Commands\Client\LogicClearObstacle.cs" />
     <Compile Include="Protocol\Commands\Client\LogicLeagueNotificationsSeen.cs" />
     <Compile Include="Protocol\Commands\Client\LogicClaimAchievementReward.cs" />
     <Compile Include="Protocol\Commands\Client\LogicSellBuilding.cs" />
@@ -186,6 +187,9 @@
     <Compile Include="Protocol\Commands\Client\LogicUnitUpgrade.cs" />
     <Compile Include="Protocol\Commands\Client\LogicTrainUnit.cs" />
     <Compile Include="Protocol\Commands\Client\LogicUpgradeBuilding.cs" />
+    <Compile Include="Protocol\Commands\Client\LogicDisbandLeague.cs" />
+    <Compile Include="Protocol\Commands\Client\LogicCommandFailed.cs" />
+    <Compile Include="Protocol\Commands\Server\LogicDiamondsAdded.cs" />
     <Compile Include="Protocol\Commands\Server\LogicChangeAvatarName.cs" />
     <Compile Include="Protocol\DebugCommand.cs" />
     <Compile Include="Protocol\CommandFactory.cs" />

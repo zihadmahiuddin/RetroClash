@@ -33,8 +33,7 @@ namespace RetroClash.Logic
                     {
                         if (Configuration.Debug)
                         {
-                            Socket.Shutdown(SocketShutdown.Both);
-                            Socket.Close();
+                            Disconnect();
 
                             Console.WriteLine($"PACKET {identifier} is not known.");
                         }
