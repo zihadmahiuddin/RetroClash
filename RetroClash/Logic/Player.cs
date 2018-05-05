@@ -23,7 +23,7 @@ namespace RetroClash.Logic
             TutorialSteps = 10;
             Language = "en";
 
-            LogicGameObjectManager = JsonConvert.DeserializeObject<LogicGameObjectManager>(Resources.Levels.StartingHome);
+            LogicGameObjectManager.Json = Resources.Levels.StartingHome;
         }
 
         [JsonProperty("account_id")]
@@ -60,7 +60,7 @@ namespace RetroClash.Logic
         public string Language { get; set; }
 
         [JsonIgnore]
-        public LogicGameObjectManager LogicGameObjectManager { get; set; }
+        public LogicGameObjectManager LogicGameObjectManager = new LogicGameObjectManager();
 
         [JsonIgnore]
         public Device Device { get; set; }
