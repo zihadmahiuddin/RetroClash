@@ -15,7 +15,7 @@ namespace RetroClash.Protocol.Commands.Client
         {
             await Resources.Gateway.Send(new EnemyHomeData(Device)
             {
-                Enemy = Resources.Cache.Random
+                Enemy = Resources.PlayerCache.Random
             });
 
             if (Device.Player.Shield.IsShieldActive)

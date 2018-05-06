@@ -1,5 +1,6 @@
 ﻿using System;
 using RetroClash.Database;
+using RetroClash.Database.Caching;
 using RetroClash.Files;
 using RetroClash.Network;
 using RetroClash.Protocol;
@@ -9,7 +10,8 @@ namespace RetroClash
     public class Resources : IDisposable
     {
         public static Gateway Gateway;
-        public static Cache Cache;
+        public static PlayerCache PlayerCache;
+        public static LeaderboardCache LeaderboardCache;
         public static Configuration Configuration;
         public static Levels Levels;
 
@@ -29,14 +31,16 @@ namespace RetroClash
 
             //Csv = new Csv();
             Fingerprint = new Fingerprint();
-            
-            Levels = new Levels();
-            Cache = new Cache();
+
             _mysql = new MySQL();
             _messagefactory = new MessageFactory();
             _commandfactory = new CommandFactory();
             _debugcommandfactory = new DebugCommandFactory();
             _apiService = new ApiService();
+
+            Levels = new Levels();
+            PlayerCache = new PlayerCache();
+            LeaderboardCache = new LeaderboardCache();
 
             Gateway = new Gateway();
         }
@@ -45,7 +49,7 @@ namespace RetroClash
         {
             //Csv = null;
             Gateway = null;
-            Cache = null;
+            PlayerCache = null;
             Configuration = null;
             Levels = null;
             Fingerprint = null;

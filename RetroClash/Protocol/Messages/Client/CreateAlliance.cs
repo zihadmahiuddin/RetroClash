@@ -1,6 +1,9 @@
 ﻿using System.Threading.Tasks;
+using RetroClash.Database;
 using RetroClash.Extensions;
 using RetroClash.Logic;
+using RetroClash.Logic.Slots;
+using RetroClash.Protocol.Commands.Server;
 using RetroClash.Protocol.Messages.Server;
 
 namespace RetroClash.Protocol.Messages.Client
@@ -28,18 +31,36 @@ namespace RetroClash.Protocol.Messages.Client
 
         public override async Task Process()
         {
-            /* var alliance = await MySQL.CreateAlliance();
-             alliance.Name = Name;
-             alliance.Description = Description;
-             alliance.Badge = Badge;
-             alliance.Type = Type;
-             alliance.RequiredScore = RequiredScore;
- 
-             alliance.Members.Add(Device.Player.AccountId, new AllianceMember(Device.Player.AccountId, 2));
- 
-             await MySQL.SaveAlliance(alliance);*/
+            /*if (await MySQL.CreateAlliance() is Alliance alliance)
+            {
+                alliance.Name = Name;
+                alliance.Description = Description;
+                alliance.Badge = Badge;
+                alliance.Type = Type;
+                alliance.RequiredScore = RequiredScore;
 
-            await Resources.Gateway.Send(new AllianceCreateFailed(Device));
+                alliance.Members.Add(Device.Player.AccountId,
+                    new AllianceMember(Device.Player.AccountId, 2, Device.Player.Score));
+
+                await Resources.Gateway.Send(new AvailableServerCommand(Device)
+                {
+                    Command = await new LogicJoinAlliance(Device)
+                    {
+                        AllianceId = alliance.Id,
+                        AllianceName = Name,
+                        AllianceBadge = Badge,
+                        AllianceRole = true
+                    }.Handle()
+                });
+
+                Device.Player.AllianceId = alliance.Id;
+
+                await MySQL.SaveAlliance(alliance);
+            }
+            else
+            {*/
+                await Resources.Gateway.Send(new AllianceCreateFailed(Device));
+            //}
         }
     }
 }

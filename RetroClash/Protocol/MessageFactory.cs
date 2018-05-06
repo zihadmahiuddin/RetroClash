@@ -22,6 +22,7 @@ namespace RetroClash.Protocol
                 {14134, typeof(AttackNpc)},
                 {14262, typeof(BindGoogleServiceAccount)},
                 {14301, typeof(CreateAlliance)},
+                {14302, typeof(AskForAllianceData)},
                 {14303, typeof(AskForJoinableAlliancesList)},
                 {14325, typeof(AskForAvatarProfileMessage)},
                 {14401, typeof(AskForAllianceRankingList)},

@@ -19,7 +19,7 @@ namespace RetroClash.Protocol.Messages.Server
         {
             await Stream.WriteIntAsync(0);
 
-            var player = await Resources.Cache.GetPlayer(AvatarId);
+            var player = await Resources.PlayerCache.GetPlayer(AvatarId);
 
             await player.LogicClientHome(Stream);
             await player.LogicClientAvatar(Stream);

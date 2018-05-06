@@ -11,8 +11,6 @@ namespace RetroClash.Protocol.Commands.Server
             Id = 7;
         }
 
-        public string AvatarName { get; set; }
-
         public override async Task Encode()
         {
             await Stream.WriteIntAsync(0); // Free Diamonds

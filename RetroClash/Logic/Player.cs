@@ -29,6 +29,9 @@ namespace RetroClash.Logic
         [JsonProperty("account_id")]
         public long AccountId { get; set; }
 
+        [JsonProperty("alliance_id")]
+        public long AllianceId { get; set; }
+
         [JsonProperty("account_name")]
         public string Name { get; set; }
 
@@ -93,13 +96,28 @@ namespace RetroClash.Logic
             await stream.WriteLongAsync(AccountId); // Account Id
             await stream.WriteLongAsync(AccountId); // Home Id
 
-            stream.WriteByte(0); // IsInAlliance
+            /*if (AllianceId > 0)
+            {
+                var alliance = await MySQL.GetAlliance(AllianceId);
 
-            // Below only if in Alliance
-            //await Stream.WriteLongAsync(0); // Alliance Id
-            //await Stream.WriteStringAsync("RetroClash"); // Alliance Name
-            //await Stream.WriteIntAsync(0); // Alliance Badge
-            //await Stream.WriteIntAsync(0); // Alliance Role
+                if (alliance != null)
+                {
+                    stream.WriteByte(1);
+                    await stream.WriteLongAsync(AllianceId); // Alliance Id
+                    await stream.WriteStringAsync(alliance.Name); // Alliance Name
+                    await stream.WriteIntAsync(alliance.Badge); // Alliance Badge
+                    await stream.WriteIntAsync(3); // Alliance Role
+                }
+                else
+                {*/
+                    AllianceId = 0;
+                    stream.WriteByte(0);
+                /*}
+            }
+            else
+            {
+                stream.WriteByte(0);
+            }*/
 
             await stream.WriteIntAsync(LogicUtils.GetLeagueByScore(Score)); // League Type
 
@@ -220,11 +238,25 @@ namespace RetroClash.Logic
             await stream.WriteStringAsync(Language); // Country
             await stream.WriteLongAsync(AccountId); // Home Id
 
-            stream.WriteByte(0); // Clan Bool
+            if (AllianceId > 0)
+            {
+                var alliance = await MySQL.GetAlliance(AllianceId);
 
-            //await stream.WriteLongAsync(0); // Clan Id
-            //await stream.WriteStringAsync("Clan"); // Clan Name
-            //await stream.WriteIntAsync(0); // Badge
+                if (alliance != null)
+                {
+                    stream.WriteByte(1);
+                    await stream.WriteLongAsync(AllianceId); // Clan Id
+                    await stream.WriteStringAsync(alliance.Name); // Clan Name
+                    await stream.WriteIntAsync(alliance.Badge); // Badge
+                }
+                else
+                {
+                    AllianceId = 0;
+                    stream.WriteByte(0);
+                }
+            }
+            else
+                stream.WriteByte(0);
         }
 
         public async void SaveCallback(object state, ElapsedEventArgs args)

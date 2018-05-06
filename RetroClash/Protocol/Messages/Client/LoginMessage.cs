@@ -69,10 +69,11 @@ namespace RetroClash.Protocol.Messages.Client
                             Device.Player.Language = Language;
                             Device.Player.DeviceName = DeviceName;
                             Device.Player.IpAddress = ((IPEndPoint) Device.Socket.RemoteEndPoint).Address.ToString();
+                            Device.Player.Device = Device;
 
-                            Resources.Cache.AddPlayer(Device.Player, Device);
+                            await Resources.Gateway.Send(new LoginOk(Device));                          
 
-                            await Resources.Gateway.Send(new LoginOk(Device));
+                            Resources.PlayerCache.AddPlayer(Device.Player);                          
 
                             await Resources.Gateway.Send(new OwnHomeData(Device));
                         }
@@ -85,9 +86,11 @@ namespace RetroClash.Protocol.Messages.Client
 
                         if (Device.Player != null && Device.Player.PassToken == Token)
                         {
-                            Resources.Cache.AddPlayer(Device.Player, Device);
+                            Device.Player.Device = Device;
 
                             await Resources.Gateway.Send(new LoginOk(Device));
+
+                            Resources.PlayerCache.AddPlayer(Device.Player);                           
 
                             await Resources.Gateway.Send(new OwnHomeData(Device));
                         }

@@ -64,7 +64,7 @@ namespace RetroClash
                                 try
                                 {
                                     Console.WriteLine("Removing every Player in cache...");
-                                    foreach (var player in Resources.Cache.Players.Values)
+                                    foreach (var player in Resources.PlayerCache.Players.Values)
                                     {
                                         player.Device.Disconnect();
                                     }
@@ -83,25 +83,41 @@ namespace RetroClash
 
                     case ConsoleKey.S:
                     {
-                        Console.WriteLine($"[STATUS] Online Players: {Resources.Cache.Players.Count}, Players Saved: {await MySQL.PlayerCount()}");
+                        Console.WriteLine($"[STATUS] Online Players: {Resources.PlayerCache.Players.Count}, Players Saved: {await MySQL.PlayerCount()}");
                         break;
                     }
 
                     case ConsoleKey.T:
-                        {
-                            Console.WriteLine("Do you want to create 1000 Test Accounts? If yes press enter. To Abort any key than enter.");
+                    {
+                        Console.WriteLine("Do you want to create 100 Test Accounts? If yes press enter. To Abort any key than enter.");
 
-                            if (Console.ReadKey().Key == ConsoleKey.Enter)
+                        if (Console.ReadKey().Key == ConsoleKey.Enter)
+                        {
+                            Console.WriteLine("Creating 100 Accounts.");
+                            for (var i = 0; i < 100; i++)
                             {
-                                Console.WriteLine("Creating 1000 Accounts.");
-                                for (var i = 0; i < 1000; i++)
-                                {
-                                    await MySQL.CreatePlayer();
-                                }
-                                Console.WriteLine("1000 Accounts created.");
+                                await MySQL.CreatePlayer();
                             }
-                            break;
+                            Console.WriteLine("100 Accounts created.");
                         }
+                        break;
+                    }
+
+                    case ConsoleKey.C:
+                    {
+                        Console.WriteLine("Do you want to create 100 Test Clans? If yes press enter. To Abort any key than enter.");
+
+                        if (Console.ReadKey().Key == ConsoleKey.Enter)
+                        {
+                            Console.WriteLine("Creating 100 Clans.");
+                            for (var i = 0; i < 100; i++)
+                            {
+                                await MySQL.CreateAlliance();
+                            }
+                            Console.WriteLine("100 Clans created.");
+                        }
+                        break;
+                    }
 
                     default:
                         {

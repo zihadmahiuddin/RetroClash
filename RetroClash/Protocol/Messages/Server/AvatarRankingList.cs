@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using RetroClash.Database;
 using RetroClash.Extensions;
 using RetroClash.Logic;
 
@@ -19,8 +18,9 @@ namespace RetroClash.Protocol.Messages.Server
 
             using (var buffer = new MemoryStream())
             {
-                foreach (var player in await MySQL.GetGlobalPlayerRanking())
+                foreach (var player in Resources.LeaderboardCache.GlobalPlayers)
                 {
+                    if (player == null) continue;
                     await buffer.WriteLongAsync(player.AccountId);
                     await buffer.WriteStringAsync(player.Name);
 

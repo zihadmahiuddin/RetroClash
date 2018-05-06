@@ -4,37 +4,34 @@ using System.Linq;
 using System.Threading.Tasks;
 using RetroClash.Logic;
 
-namespace RetroClash.Database
+namespace RetroClash.Database.Caching
 {
-    public class Cache
+    public class PlayerCache
     {
-        public readonly object Gate = new object();
-        public Dictionary<long, Alliance> Alliances = new Dictionary<long, Alliance>();
+        private readonly object _gate = new object();
+
         public Dictionary<long, Player> Players = new Dictionary<long, Player>();
 
         public Player Random
         {
             get
             {
-                if (Players.Count <= 1) return null;
-
-                lock (Gate)
+                lock (_gate)
                 {
+                    if (Players.Count <= 1) return null;
                     return Players.ElementAt(new Random().Next(0, Players.Count - 1)).Value;
                 }
             }
         }
 
-        public void AddPlayer(Player player, Device device)
+        public void AddPlayer(Player player)
         {
-            lock (Gate)
+            lock (_gate)
             {
                 try
                 {
                     if (Players.ContainsKey(player.AccountId))
                         Players.Remove(player.AccountId);
-
-                    player.Device = device;
 
                     player.Timer.Elapsed += player.SaveCallback;
                     player.Timer.Start();
@@ -51,7 +48,7 @@ namespace RetroClash.Database
 
         public async Task<Player> GetPlayer(long id)
         {
-            lock (Gate)
+            lock (_gate)
             {
                 if (Players.ContainsKey(id))
                     return Players[id];
@@ -60,20 +57,9 @@ namespace RetroClash.Database
             return await MySQL.GetPlayer(id);
         }
 
-        public async Task<Alliance> GetAlliance(long id)
-        {
-            lock (Gate)
-            {
-                if (Alliances.ContainsKey(id))
-                    return Alliances[id];
-            }
-
-            return await MySQL.GetAlliance(id);
-        }
-
         public void RemovePlayer(long id)
         {
-            lock (Gate)
+            lock (_gate)
             {
                 try
                 {

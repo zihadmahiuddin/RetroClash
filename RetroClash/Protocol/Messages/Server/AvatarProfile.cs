@@ -24,7 +24,7 @@ namespace RetroClash.Protocol.Messages.Server
             }
             else
             {
-                await (await Resources.Cache.GetPlayer(UserId)).LogicClientAvatar(Stream);
+                await (await Resources.PlayerCache.GetPlayer(UserId)).LogicClientAvatar(Stream);
 
                 await Stream.WriteIntAsync(0); // Troops Donated
                 await Stream.WriteIntAsync(0); // Troops Received

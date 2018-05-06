@@ -29,7 +29,7 @@ namespace RetroClash.Logic
         [JsonProperty("alliance_id")]
         public long Id { get; set; }
 
-        [JsonProperty("alliance_name")]
+        [JsonIgnore]
         public string Name { get; set; }
 
         [JsonProperty("alliance_description")]
@@ -53,7 +53,7 @@ namespace RetroClash.Logic
         public async Task AllianceRankingEntry(MemoryStream stream)
         {
             await stream.WriteIntAsync(Badge); // Badge
-            await stream.WriteIntAsync(0); // Member Count
+            await stream.WriteIntAsync(Members.Count); // Member Count
         }
 
         public async Task AllianceFullEntry(MemoryStream stream)
@@ -63,6 +63,13 @@ namespace RetroClash.Logic
             await stream.WriteStringAsync(Description); // Description
             await stream.WriteLongAsync(0); // Donation Reset Time
             await stream.WriteLongAsync(0); // Ranking Check Time
+
+            if (Members.Count > 0)
+            {
+                var count = 1;
+                foreach (var member in Members.Values)
+                    await member.AllianceMemberEntry(stream, count++);
+            }
         }
 
         public async Task AllianceHeaderEntry(MemoryStream stream)

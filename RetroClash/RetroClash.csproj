@@ -94,7 +94,8 @@
     <Compile Include="Crypto\Rc4.cs" />
     <Compile Include="Crypto\Scrambler.cs" />
     <Compile Include="Database\ApiService.cs" />
-    <Compile Include="Database\Cache.cs" />
+    <Compile Include="Database\Caching\PlayerCache.cs" />
+    <Compile Include="Database\Caching\LeaderboardCache.cs" />
     <Compile Include="Database\Models\ApiInfo.cs" />
     <Compile Include="Database\MySQL.cs" />
     <Compile Include="Database\Redis.cs" />
@@ -190,6 +191,7 @@
     <Compile Include="Protocol\Commands\Client\LogicUpgradeBuilding.cs" />
     <Compile Include="Protocol\Commands\Client\LogicDisbandLeague.cs" />
     <Compile Include="Protocol\Commands\Client\LogicCommandFailed.cs" />
+    <Compile Include="Protocol\Commands\Server\LogicJoinAlliance.cs" />
     <Compile Include="Protocol\Commands\Server\LogicDiamondsAdded.cs" />
     <Compile Include="Protocol\Commands\Server\LogicChangeAvatarName.cs" />
     <Compile Include="Protocol\DebugCommand.cs" />
@@ -198,6 +200,7 @@
     <Compile Include="Protocol\Message.cs" />
     <Compile Include="Protocol\MessageFactory.cs" />
     <Compile Include="Protocol\Messages\Client\AskForAvatarLocalRankingList.cs" />
+    <Compile Include="Protocol\Messages\Client\AskForAllianceData.cs" />
     <Compile Include="Protocol\Messages\Client\AskForAvatarRankingList.cs" />
     <Compile Include="Protocol\Messages\Client\AskForAllianceRankingList.cs" />
     <Compile Include="Protocol\Messages\Client\AskForAvatarProfileMessage.cs" />
@@ -214,6 +217,7 @@
     <Compile Include="Protocol\Messages\Client\SetDeviceTokenMessage.cs" />
     <Compile Include="Protocol\Messages\Client\VisitHome.cs" />
     <Compile Include="Protocol\Messages\Server\AllianceCreateFailed.cs" />
+    <Compile Include="Protocol\Messages\Server\AllianceData.cs" />
     <Compile Include="Protocol\Messages\Server\AllianceRankingList.cs" />
     <Compile Include="Protocol\Messages\Server\AllianceList.cs" />
     <Compile Include="Protocol\Messages\Server\AvailableServerCommand.cs" />
@@ -229,9 +233,9 @@
     <Compile Include="Protocol\Messages\Server\LoginFailed.cs" />
     <Compile Include="Protocol\Messages\Server\LoginOk.cs" />
     <Compile Include="Protocol\Messages\Server\NpcData.cs" />
+    <Compile Include="Protocol\Messages\Server\WaitingToGoHome.cs" />
     <Compile Include="Protocol\Messages\Server\OutOfSync.cs" />
     <Compile Include="Protocol\Messages\Server\OwnHomeData.cs" />
-    <Compile Include="Protocol\Messages\Server\AllianceJoinOk.cs" />
     <Compile Include="Protocol\Messages\Server\PersonalBreakStarted.cs" />
     <Compile Include="Protocol\Messages\Server\ServerError.cs" />
     <Compile Include="Protocol\Messages\Server\AllianceChangeFailed.cs" />

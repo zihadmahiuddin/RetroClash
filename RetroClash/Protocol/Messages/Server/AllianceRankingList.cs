@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.IO;
+using System.Threading.Tasks;
 using RetroClash.Extensions;
 using RetroClash.Logic;
 
@@ -13,19 +14,32 @@ namespace RetroClash.Protocol.Messages.Server
 
         public override async Task Encode()
         {
-            await Stream.WriteIntAsync(1);
+            var count = 0;
 
-            await Stream.WriteLongAsync(1);
-            await Stream.WriteStringAsync("RetroClash");
-            await Stream.WriteIntAsync(1);
-            await Stream.WriteIntAsync(5000);
-            await Stream.WriteIntAsync(200);
-            await Stream.WriteIntAsync(13000022);
-            await Stream.WriteIntAsync(1);
+            using (var buffer = new MemoryStream())
+            {
+                foreach (var alliance in Resources.LeaderboardCache.GlobalAlliances)
+                {
+                    if (alliance == null) continue;
+                    await buffer.WriteLongAsync(alliance.Id);
+                    await buffer.WriteStringAsync(alliance.Name);
+                    await buffer.WriteIntAsync(count + 1);
+                    await buffer.WriteIntAsync(alliance.Score);
+                    await buffer.WriteIntAsync(200);
 
-            await Stream.WriteIntAsync(604800);
-            await Stream.WriteIntAsync(0);
-            await Stream.WriteIntAsync(1);
+                    await alliance.AllianceRankingEntry(buffer);
+
+                    if (count++ >= 199)
+                        break;
+                }
+
+                await Stream.WriteIntAsync(count);
+                await Stream.WriteBufferAsync(buffer.ToArray());
+
+                await Stream.WriteIntAsync(604800);
+                await Stream.WriteIntAsync(0);
+                await Stream.WriteIntAsync(1);
+            }
         }
     }
 }

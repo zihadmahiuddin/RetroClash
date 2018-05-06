@@ -75,7 +75,7 @@ namespace RetroClash.Logic
         {
             try
             {
-                Resources.Cache.RemovePlayer(Player.AccountId);
+                Resources.PlayerCache.RemovePlayer(Player.AccountId);
 
                 Socket.Shutdown(SocketShutdown.Both);
                 Socket.Close();

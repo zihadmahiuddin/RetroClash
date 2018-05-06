@@ -27,30 +27,27 @@ namespace RetroClash.Logic.Slots
         [JsonProperty("score")]
         public int Score { get; set; }
 
-        public async Task<byte[]> AllianceMemberEntry(int order)
+        public async Task<byte[]> AllianceMemberEntry(MemoryStream stream, int order)
         {
-            using (var stream = new MemoryStream())
-            {
-                var player = await Resources.Cache.GetPlayer(AccountId);
+            var player = await Resources.PlayerCache.GetPlayer(AccountId);
 
-                await stream.WriteLongAsync(AccountId); // Avatar Id
-                await stream.WriteStringAsync(player.Name); // Name
-                await stream.WriteIntAsync(Role); // Role
-                await stream.WriteIntAsync(player.ExpLevel); // Exp Level
-                await stream.WriteIntAsync(LogicUtils.GetLeagueByScore(Score)); // League Type
-                await stream.WriteIntAsync(Score); // Score
-                await stream.WriteIntAsync(0); // Donations
-                await stream.WriteIntAsync(0); // Donations Received
-                await stream.WriteIntAsync(order); // Order
-                await stream.WriteIntAsync(order); // Previous Order
+            await stream.WriteLongAsync(AccountId); // Avatar Id
+            await stream.WriteStringAsync(player.Name); // Name
+            await stream.WriteIntAsync(Role); // Role
+            await stream.WriteIntAsync(player.ExpLevel); // Exp Level
+            await stream.WriteIntAsync(LogicUtils.GetLeagueByScore(Score)); // League Type
+            await stream.WriteIntAsync(Score); // Score
+            await stream.WriteIntAsync(0); // Donations
+            await stream.WriteIntAsync(0); // Donations Received
+            await stream.WriteIntAsync(order); // Order
+            await stream.WriteIntAsync(order); // Previous Order
 
-                stream.WriteByte(0); // IsNewMember
+            stream.WriteByte(0); // IsNewMember
 
-                stream.WriteByte(1); // HomeId
-                await stream.WriteLongAsync(AccountId); // Home Id
+            stream.WriteByte(1); // HomeId
+            await stream.WriteLongAsync(AccountId); // Home Id
 
-                return stream.ToArray();
-            }
+            return stream.ToArray();
         }
     }
 }
