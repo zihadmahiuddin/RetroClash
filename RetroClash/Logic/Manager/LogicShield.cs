@@ -32,8 +32,10 @@ namespace RetroClash.Logic.Manager
             EndTime = DateTime.Now;
         }
 
+        [JsonIgnore]
         public bool IsShieldActive => EndTime >= DateTime.Now;
 
+        [JsonIgnore]
         public int ShieldSecondsLeft => (int)(EndTime - DateTime.Now).TotalSeconds;
 
         public int GetShieldDurationByType(int type)
