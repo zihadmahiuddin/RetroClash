@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using RetroClash.Extensions;
 using RetroClash.Logic;
+using RetroClash.Logic.Manager.Items;
 using RetroClash.Protocol.Messages.Server;
 
 namespace RetroClash.Protocol.Messages.Client
@@ -33,8 +34,7 @@ namespace RetroClash.Protocol.Messages.Client
                             Name = "DebugManager",
                             ExpLevel = 100,
                             League = 16,
-                            AccountId = 0,
-                            HomeId = 0
+                            AccountId = 0
                         });
                         break;
                     }
@@ -58,8 +58,7 @@ namespace RetroClash.Protocol.Messages.Client
                                 Name = "DebugManager",
                                 ExpLevel = 100,
                                 League = 16,
-                                AccountId = 0,
-                                HomeId = 0
+                                AccountId = 0
                             });
                         }
                         break;
@@ -73,21 +72,19 @@ namespace RetroClash.Protocol.Messages.Client
                             Name = "DebugManager",
                             ExpLevel = 100,
                             League = 16,
-                            AccountId = 0,
-                            HomeId = 0
+                            AccountId = 0
                         });
                         break;
                     }
                 }
             else
-                await Resources.Gateway.Send(new GlobalChatLine(Device)
+                await Resources.ChatManager.Process(new GlobalChatEntry
                 {
                     Message = Message,
-                    Name = Device.Player.Name,
-                    ExpLevel = Device.Player.ExpLevel,
-                    League = LogicUtils.GetLeagueByScore(Device.Player.Score),
-                    AccountId = Device.Player.AccountId,
-                    HomeId = Device.Player.AccountId
+                    SenderName = Device.Player.Name,
+                    SenderId = Device.Player.AccountId,
+                    SenderExpLevel = Device.Player.ExpLevel,
+                    SenderLeague = LogicUtils.GetLeagueByScore(Device.Player.Score)
                 });
         }
     }

@@ -2,6 +2,7 @@
 using RetroClash.Database;
 using RetroClash.Database.Caching;
 using RetroClash.Files;
+using RetroClash.Logic.Manager;
 using RetroClash.Network;
 using RetroClash.Protocol;
 
@@ -14,6 +15,7 @@ namespace RetroClash
         public static LeaderboardCache LeaderboardCache;
         public static Configuration Configuration;
         public static Levels Levels;
+        public static LogicGlobalChatManager ChatManager;
 
         public static Fingerprint Fingerprint;
         //public static Csv Csv;
@@ -41,6 +43,8 @@ namespace RetroClash
             Levels = new Levels();
             PlayerCache = new PlayerCache();
             LeaderboardCache = new LeaderboardCache();
+
+            ChatManager = new LogicGlobalChatManager();
 
             Gateway = new Gateway();
         }

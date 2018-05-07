@@ -18,7 +18,6 @@ namespace RetroClash.Protocol.Messages.Server
         public int League { get; set; }
 
         public long AccountId { get; set; }
-        public long HomeId { get; set; }
 
         public override async Task Encode()
         {
@@ -29,7 +28,7 @@ namespace RetroClash.Protocol.Messages.Server
             await Stream.WriteIntAsync(League); // League
 
             await Stream.WriteLongAsync(AccountId); // AccountId
-            await Stream.WriteLongAsync(HomeId); // HomeId
+            await Stream.WriteLongAsync(AccountId); // HomeId
 
             Stream.WriteByte(0); // IsInClan
         }

@@ -147,12 +147,14 @@
     <Compile Include="Logic\LogicUtils.cs" />
     <Compile Include="Logic\Manager\Items\Building.cs" />
     <Compile Include="Logic\Manager\Items\Decoration.cs" />
+    <Compile Include="Logic\Manager\Items\GlobalChatEntry.cs" />
     <Compile Include="Logic\Manager\Items\Obstacle.cs" />
     <Compile Include="Logic\Manager\Items\Trap.cs" />
     <Compile Include="Logic\Manager\Items\Unit.cs" />
     <Compile Include="Logic\Manager\Items\UnitProd.cs" />
     <Compile Include="Files\Levels.cs" />
     <Compile Include="Logic\Manager\LogicGameObjectManager.cs" />
+    <Compile Include="Logic\Manager\LogicGlobalChatManager.cs" />
     <Compile Include="Logic\Manager\LogicShield.cs" />
     <Compile Include="Logic\Manager\Units.cs" />
     <Compile Include="Logic\Slots\Achievements.cs" />
