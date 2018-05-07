@@ -31,5 +31,16 @@ namespace RetroClash.Extensions
                 return token;
             }
         }
+
+        public static int GetSecondsUntilNextMonth
+        {
+            get
+            {
+                var now = DateTime.UtcNow;
+
+                return (int) (new DateTime(now.Year, now.Month + 1, 1, now.Hour,
+                                  now.Minute, now.Second) - now).TotalSeconds;
+            }
+        }
     }
 }

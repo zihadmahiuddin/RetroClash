@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using RetroClash.Extensions;
 using RetroClash.Logic;
@@ -36,9 +37,12 @@ namespace RetroClash.Protocol.Messages.Server
                 await Stream.WriteIntAsync(count);
                 await Stream.WriteBufferAsync(buffer.ToArray());
 
-                await Stream.WriteIntAsync(604800);
-                await Stream.WriteIntAsync(0);
-                await Stream.WriteIntAsync(1);
+                await Stream.WriteIntAsync(Utils.GetSecondsUntilNextMonth); // Tournament Seconds left - 7 Days -> 604800
+
+                await Stream.WriteIntAsync(3); // Reward Count
+                await Stream.WriteIntAsync(100000); // #1 Reward
+                await Stream.WriteIntAsync(10000); // #2 Reward
+                await Stream.WriteIntAsync(1000); // #3 Reward
             }
         }
     }
